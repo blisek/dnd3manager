@@ -7,4 +7,5 @@ public class StringConstants {
 	public static final String INTELLIGENCE = "int";
 	public static final String WISDOM = "wis";
 	public static final String CHARISMA = "cha";
+	public static final String ALIGNMENT = "alignment";
 }
