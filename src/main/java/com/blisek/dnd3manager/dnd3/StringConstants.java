@@ -8,4 +8,8 @@ public class StringConstants {
 	public static final String WISDOM = "wis";
 	public static final String CHARISMA = "cha";
 	public static final String ALIGNMENT = "alignment";
+	
+	public static final String KEY_FEATS = "feats";
+	public static final String KEY_SKILLS = "skills";
+	public static final String KEY_CLASS = "classes";
 }

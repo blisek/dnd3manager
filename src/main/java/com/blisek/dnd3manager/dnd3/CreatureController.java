@@ -149,6 +149,11 @@ public class CreatureController implements CreatureModelObservator {
 		}
 	}
 
+	/**
+	 * Sumuje wszystkie wartości przypisane do kluczy modelu postaci, które zaczynają się od prefix.
+	 * @param prefix prefiks nazw kluczy.
+	 * @return suma wszystkich wartości spełniających warunek.
+	 */
 	private int calculateMod(String prefix) {
 		return model.entrySet().parallelStream()
 				.filter((entry) -> entry.getKey().startsWith(prefix))

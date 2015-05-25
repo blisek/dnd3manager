@@ -1,5 +1,6 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,22 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	
 	public CreatureModel() {
 		observators = new LinkedList<CreatureModelObservator>();
+		
+		// klucz przechowujący listę z poziomami zdobytymi w różnych klasach.
+		put(StringConstants.KEY_CLASS, new LinkedList<ClassInfo>());
+		
+		// klucz przechowujący informację o atutach dla tej postaci.
+		// Przechowywane są w postaci klucz-wartość, gdzie klucz to nazwa systemowa atutu
+		// a wartość to obiekt, którego tożsamość (typ, zawartość etc.) jest znana i do użytku
+		// wewnętrznego atutu.
+		// Np. jeśli atutem byłaby Biegłość w broni prostej, wartością mogłaby być lista broni
+		// w których postać tę biegłość posiada.
+		put(StringConstants.KEY_FEATS, new HashMap<String, Object>());
+		
+		// Klucz przechowujący informację o posiadanych umiejętnościach.
+		// Dane przechowywane są w postaci klucz-wartość, gdzie klucz jest nazwą systemową
+		// umiejętności, a wartość liczbą rang.
+		put(StringConstants.KEY_SKILLS, new HashMap<String, Integer>());
 	}
 
 	@Override
@@ -73,6 +90,39 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 		observators.parallelStream().forEach((observer) -> observer.onKeyReplaced(this, key, obj, value));
 		return obj;
 	}
+	
+	/**
+	 * Zwraca listę par postaci (nazwa systemowa klasy, liczba poziomów).
+	 * Kolejność elementów na liście odpowiada kolejności zdobywania doświadczenia
+	 * w posiadanych klasach (co może być istotne np. w przypadku wieloklasowca z
+	 * poziomem w klasie Mnich).
+	 * @return lista obiektów ClassInfo.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ClassInfo> getClassInfos() {
+		return (List<ClassInfo>)get(StringConstants.KEY_CLASS);
+	}
+	
+	/**
+	 * Zwraca mapę atutów w postaci klucz-wartość, gdzie klucz jest nazwą systemową
+	 * atutu, a wartością dane wykorzystywane przez ten atut.
+	 * @return mapa atutów
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getFeatsMap() {
+		return (Map<String, Object>)get(StringConstants.KEY_FEATS);
+	}
+	
+	/**
+	 * Zwraca mapę klucz-wartość umiejętności postaci, gdzie klucz jest nazwą
+	 * systemową umiejętności, a wartością jest liczba rang w tej umiejętności
+	 * bez uwzględnienia premii z modyfikatora atrybutu kluczowego.
+	 * @return mapa umiejętności.
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Integer> getSkillsMap() {
+		return (Map<String, Integer>)get(StringConstants.KEY_SKILLS);
+	}
 
 	/**
 	 * Serial version UID
@@ -82,3 +132,4 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	private List<CreatureModelObservator> observators;
 
 }
+
