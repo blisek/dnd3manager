@@ -155,10 +155,11 @@ public class CreatureController implements CreatureModelObservator {
 	 * @return suma wszystkich wartości spełniających warunek.
 	 */
 	private int calculateMod(String prefix) {
-		return model.entrySet().parallelStream()
+		int sum = model.entrySet().parallelStream()
 				.filter((entry) -> entry.getKey().startsWith(prefix))
 				.mapToInt((entry) -> { Object obj = entry.getValue(); return obj == null ? 0 : (int)obj; })
 				.sum();	
+		return sum < 10 ? (sum - 11) / 2 : (sum - 10) / 2;
 	}
 
 
