@@ -1,6 +1,6 @@
 package com.blisek.dnd3manager.dnd3;
 
-public abstract class AbstractFeat implements SystemObject {
+public abstract class AbstractFeat implements RestrictedSystemObject {
 
 	@Override
 	public boolean isOnFor(CreatureModel model, Object... extraParams) {
