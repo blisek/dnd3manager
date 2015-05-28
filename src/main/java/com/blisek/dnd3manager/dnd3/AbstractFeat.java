@@ -6,7 +6,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	public boolean isOnFor(CreatureModel model, Object... extraParams) {
 		if(model == null)
 			throw new NullPointerException();
-		return true;
+		return model.getFeatsMap().containsKey(getSystemName());
 	}
 	
 	/**
