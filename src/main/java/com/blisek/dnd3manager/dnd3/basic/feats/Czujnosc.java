@@ -21,7 +21,7 @@ public class Czujnosc extends AbstractFeat {
 	}
 
 	@Override
-	public void turnOnFor(CreatureModel model, Object... extraParams) {
+	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
 		Map<String, Object> feats = model.getFeatsMap();
 		Map<String, Integer> skills = model.getSkillsMap();
 		
@@ -37,7 +37,7 @@ public class Czujnosc extends AbstractFeat {
 	}
 
 	@Override
-	public void turnOffFor(CreatureModel model, Object... extraParams) {
+	public void turnOffFor(CreatureModel model, Map<String, Object> extraParams) {
 		Map<String, Integer> skills = model.getSkillsMap();
 		
 		Integer tmp = skills.get(Nasluchiwanie.SYSTEM_NAME) - 2;

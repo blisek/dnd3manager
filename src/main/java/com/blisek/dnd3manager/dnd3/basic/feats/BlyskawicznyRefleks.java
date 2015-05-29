@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3.basic.feats;
 
+import java.util.Map;
+
 import com.blisek.dnd3manager.dnd3.AbstractFeat;
 import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.StringConstants;
@@ -23,13 +25,13 @@ public class BlyskawicznyRefleks extends AbstractFeat {
 	}
 
 	@Override
-	public void turnOnFor(CreatureModel model, Object... extraParams) {
+	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
 		model.put(REFLEX_NAME, 2);
 		model.getFeatsMap().put(BlyskawicznyRefleks.SYSTEM_NAME, 1);
 	}
 
 	@Override
-	public void turnOffFor(CreatureModel model, Object... extraParams) {
+	public void turnOffFor(CreatureModel model, Map<String, Object> extraParams) {
 		model.remove(REFLEX_NAME);
 		model.getFeatsMap().remove(getSystemName());
 	}
