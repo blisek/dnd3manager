@@ -1,5 +1,8 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -20,8 +23,23 @@ public class ExtraParamsHelper {
 	public static void increaseSkillsRanks(Map<String, Object> extraParams, int additional_ranks) {
 		Object ranks = extraParams.get(StringConstants.P_RANKS);
 		if(ranks == null)
-			extraParams.put(StringConstants.P_RANKS, additional_ranks);
-		else
-			extraParams.put(StringConstants.P_RANKS, (int)ranks + additional_ranks);
+			extraParams.put(StringConstants.P_RANKS, Math.max(0, additional_ranks));
+		else 
+			extraParams.put(StringConstants.P_RANKS, Math.max(0, (int)ranks + additional_ranks));
 	}
+	
+	/**
+	 * Zwiększa liczbę atutów o additional_rank. Gwarantowane jest
+	 * że z kluczem P_FEATS zostanie związana liczba >= 0.
+	 * @param extraParams słownik dod. parametrów.
+	 * @param additional_ranks dodatkowe rangi. Może być liczbą ujemną.
+	 */
+	public static void increaseFeatsCount(Map<String, Object> extraParams, int additional_ranks) {
+		Object ranks = extraParams.get(StringConstants.P_FEATS);
+		if(ranks == null)
+			extraParams.put(StringConstants.P_FEATS, Math.max(0, additional_ranks));
+		else
+			extraParams.put(StringConstants.P_FEATS, Math.max(0, (int)ranks + additional_ranks));
+	}
+	
 }
