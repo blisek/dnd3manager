@@ -1,5 +1,6 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -71,7 +72,7 @@ public class CreatureFactoryInterfaces {
 		 * @param num_of_feats liczba atutów do wyboru.
 		 * @param limitation kolekcja z której będą wybierane atuty.
 		 */
-		public void selectFeats(CreatureModel model, int num_of_feats, Optional<Iterable<AbstractFeat>> limitation);
+		public void selectFeats(CreatureModel model, int num_of_feats, Optional<Collection<AbstractFeat>> limitation);
 	}
 	
 	/**

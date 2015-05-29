@@ -1,5 +1,6 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -54,11 +55,11 @@ public class CreatureFactory {
 		Object feats = extraParams.remove(StringConstants.P_FEATS);
 		int feats_num = (feats == null) ? 0 : (int)feats;
 		feats = extraParams.remove(StringConstants.P_FEATS_LIST);
-		Optional<Iterable<AbstractFeat>> featsIter;
+		Optional<Collection<AbstractFeat>> featsIter;
 		if(feats == null) {
-			featsIter = Optional.<Iterable<AbstractFeat>>empty();
+			featsIter = Optional.<Collection<AbstractFeat>>empty();
 		} else {
-			featsIter = Optional.<Iterable<AbstractFeat>>of((Iterable<AbstractFeat>)feats);
+			featsIter = Optional.<Collection<AbstractFeat>>of((Collection<AbstractFeat>)feats);
 		}
 		featsFactory.selectFeats(model, feats_num, featsIter);
 		
