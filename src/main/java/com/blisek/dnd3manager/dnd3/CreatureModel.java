@@ -19,7 +19,7 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 		observators = new LinkedList<CreatureModelObservator>();
 		
 		// klucz przechowujący listę z poziomami zdobytymi w różnych klasach.
-		put(StringConstants.KEY_CLASS, new LinkedList<ClassInfo>());
+		put(StringConstants.KEY_CLASS, new LinkedList<ClassLevelInfo>());
 		
 		// klucz przechowujący informację o atutach dla tej postaci.
 		// Przechowywane są w postaci klucz-wartość, gdzie klucz to nazwa systemowa atutu
@@ -99,8 +99,8 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	 * @return lista obiektów ClassInfo.
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ClassInfo> getClassInfos() {
-		return (List<ClassInfo>)get(StringConstants.KEY_CLASS);
+	public List<ClassLevelInfo> getClassInfos() {
+		return (List<ClassLevelInfo>)get(StringConstants.KEY_CLASS);
 	}
 	
 	/**
