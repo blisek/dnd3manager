@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Map;
+
 /**
  * Bazowa klasa dla umiejętności.
  * @author bartek
@@ -8,17 +10,19 @@ package com.blisek.dnd3manager.dnd3;
 public abstract class AbstractSkill implements SystemObject {
 
 	@Override
-	public boolean isOnFor(CreatureModel model, Object... extraParams) {
+	public boolean isOnFor(CreatureModel model, Map<String, Object> extraParams) {
 		return model.getSkillsMap().containsKey(getSystemName());
 	}
 
+	// domyślnie po przypisaniu do słownika, rangi ustawiane są na 0
 	@Override
-	public void turnOnFor(CreatureModel model, Object... extraParams) {
-		model.getSkillsMap().put(getSystemName(), extraParams[0] instanceof Integer ? (int)extraParams[0] : 1);
+	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
+		Object ranks = extraParams.get(StringConstants.P_RANKS_FOR_THIS_SKILL);
+		model.getSkillsMap().put(getSystemName(), ranks == null ? 0 : (int)ranks);
 	}
 
 	@Override
-	public void turnOffFor(CreatureModel model, Object... extraParams) {
+	public void turnOffFor(CreatureModel model, Map<String, Object> extraParams) {
 		model.getSkillsMap().remove(getSystemName());
 	}
 	
@@ -41,7 +45,7 @@ public abstract class AbstractSkill implements SystemObject {
 	 * @param extraParams dodatkowe parametry.
 	 * @return
 	 */
-	public boolean hasAtLeastOneRank(CreatureModel model, Object... extraParams) {
+	public boolean hasAtLeastOneRank(CreatureModel model, Map<String, Object> extraParams) {
 		Integer ranks = model.getSkillsMap().get(getSystemName());
 		return (ranks != null) && (ranks >= 1);
 	}

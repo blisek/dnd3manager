@@ -16,4 +16,34 @@ public class StringConstants {
 	public static final String FORTITUDE = "fortitude";
 	public static final String REFLEX = "reflex";
 	public static final String WILL = "will";
+	
+	public static final String RACE = "race";
+	
+	
+	// PARAMETRY PRZEKAZYWANE PRZY TWORZENIU
+	/**
+	 * Pod tym kluczem w extraParams umieszczana
+	 * jest liczba rang.
+	 */
+	public static final String P_RANKS = "ranks";
+	
+	/**
+	 * Pod tym kluczem extraParams umieszczana
+	 * jest liczba atutów.
+	 */
+	public static final String P_FEATS = "feats";
+	
+	/**
+	 * Z tym parametrem związana jest lista atutów z
+	 * których FeatsFactory czerpie.
+	 */
+	public static final String P_FEATS_LIST = "feats_list";
+	
+	/**
+	 * Specjalny parametr wykorzystywany w metodzie turnOnFor
+	 * klasy skills. Jeżeli obecny, liczba rang w umiejętności dla
+	 * której wywoływana jest metoda turnOnFor zostanie ustawiona na
+	 * tę wartość.
+	 */
+	public static final String P_RANKS_FOR_THIS_SKILL = "current_skill_ranks";
 }

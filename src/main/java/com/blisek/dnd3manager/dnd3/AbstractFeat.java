@@ -1,9 +1,11 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Map;
+
 public abstract class AbstractFeat implements RestrictedSystemObject {
 
 	@Override
-	public boolean isOnFor(CreatureModel model, Object... extraParams) {
+	public boolean isOnFor(CreatureModel model, Map<String, Object> extraParams) {
 		if(model == null)
 			throw new NullPointerException();
 		return model.getFeatsMap().containsKey(getSystemName());
@@ -21,7 +23,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param model model dla którego atut zostanie aktywowany.
 	 * @param extraParams dodatkowe parametry.
 	 */
-	public void activateFor(CreatureModel model, Object... extraParams) {}
+	public void activateFor(CreatureModel model, Map<String, Object> extraParams) {}
 	
 	/**
 	 * Deaktywuje wcześniej aktywowany atut dla danego modelu. Jeśli atut
@@ -30,5 +32,5 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param model model postaci.
 	 * @param extraParams dodatkowe parametry.
 	 */
-	public void deactivateFor(CreatureModel model, Object... extraParams) {}
+	public void deactivateFor(CreatureModel model, Map<String, Object> extraParams) {}
 }

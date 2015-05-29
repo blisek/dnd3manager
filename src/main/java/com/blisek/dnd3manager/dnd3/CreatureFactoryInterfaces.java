@@ -4,6 +4,12 @@ import java.util.Map;
 import java.util.Optional;
 
 public class CreatureFactoryInterfaces {
+	/**
+	 * Z kluczem o tej nazwie związana jest fabryka innych
+	 * parametrów takich jak wybór bóstwa. Parametr ten jest
+	 * dostępny od początku istnienia słownika extraParams.
+	 */
+	public static final String P_OTHER_PARAMETERS_FACTORY = "oth_param_fact";
 	
 	/**
 	 * Metoda wytwórcza zwracająca wartości
@@ -21,7 +27,7 @@ public class CreatureFactoryInterfaces {
 	 *
 	 */
 	public static interface RaceFactory {
-		public AbstractRace getRace(CreatureModel model, Map<String, Object> extraParams);
+		public void selectRace(CreatureModel model, Map<String, Object> extraParams);
 	}
 	
 	/**
@@ -30,7 +36,7 @@ public class CreatureFactoryInterfaces {
 	 *
 	 */
 	public static interface ClassFactory {
-		public AbstractClass getClass(CreatureModel model, Map<String, Object> extraParams);
+		public void selectClass(CreatureModel model, Map<String, Object> extraParams);
 	}
 	
 	/**
@@ -66,5 +72,14 @@ public class CreatureFactoryInterfaces {
 		 * @param limitation kolekcja z której będą wybierane atuty.
 		 */
 		public void selectFeats(CreatureModel model, int num_of_feats, Optional<Iterable<AbstractFeat>> limitation);
+	}
+	
+	/**
+	 * Odpowiedzialny za wybór innych parametrów. Np. bóstwa.
+	 * @author bartek
+	 *
+	 */
+	public static interface OtherParametersFactory {
+		public String selectDeity();
 	}
 }
