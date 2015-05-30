@@ -39,4 +39,31 @@ public class ExtraParamsHelper {
 			extraParams.put(StringConstants.P_FEATS, Math.max(0, (int)ranks + additional_ranks));
 	}
 	
+	/**
+	 * Zwraca int z podanego klucza.
+	 * @param extraParams słownik paramterów.
+	 * @param param nazwa parametru.
+	 * @return int lub 0 jeśli klucz nie istnieje.
+	 */
+	public static int getInteger(Map<String, Object> extraParams, String param) {
+		Object integer = extraParams.get(param);
+		if(integer == null)
+			return 0;
+		else
+			return (int)integer;
+	}
+	
+	/**
+	 * Zwraca wartość boolowską, bądź null jeśli klucza nie ma w słowniku.
+	 * @param extraParams
+	 * @param param
+	 * @return
+	 */
+	public static Boolean getBoolean(Map<String, Object> extraParams, String param) {
+		Object bool = extraParams.get(param);
+		if(bool == null)
+			return null;
+		else
+			return (Boolean)bool;
+	}
 }

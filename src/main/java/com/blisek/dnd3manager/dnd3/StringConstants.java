@@ -18,6 +18,7 @@ public class StringConstants {
 	public static final String WILL = "will";
 	
 	public static final String RACE = "race";
+	public static final String SIZE = "size";
 	
 	
 	// PARAMETRY PRZEKAZYWANE PRZY TWORZENIU
@@ -46,4 +47,15 @@ public class StringConstants {
 	 * tę wartość.
 	 */
 	public static final String P_RANKS_FOR_THIS_SKILL = "current_skill_ranks";
+	
+	/**
+	 * Z tym kluczem związany jest poziom na który wchodzi postać.
+	 */
+	public static final String P_LEVEL = "level";
+	
+	/**
+	 * Klucz z wartością informującą czy to 1. poziom w ogóle
+	 * w tym modelu.
+	 */
+	public static final String P_FIRST_LEVEL = "first_level";
 }
