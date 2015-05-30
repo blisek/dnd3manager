@@ -27,18 +27,27 @@ public class Czlowiek extends AbstractRace {
 
 	@Override
 	public void turnOffFor(CreatureModel model, Map<String, Object> extraParams) {
-		// TODO Auto-generated method stub
-
+		// jeśli rasa jest usuwana na innym etapie niż podczas
+		// tworzenia postaci zostanie zgłoszony wyjątek
+		// IllegalStateException.
+		Boolean firstLevel = ExtraParamsHelper.getBoolean(extraParams, StringConstants.P_FIRST_LEVEL);
+		if(firstLevel == null || !firstLevel) 
+			throw new IllegalStateException();
+		extraParams.remove(StringConstants.SIZE);
+		extraParams.remove(StringConstants.SPEED);
+		ExtraParamsHelper.increaseFeatsCount(extraParams, -1);
+		ExtraParamsHelper.increaseSkillsRanks(extraParams, -4);
 	}
 	
 	private void firstLevel(CreatureModel model, Map<String,Object> extraParams) {
 		ExtraParamsHelper.increaseSkillsRanks(extraParams, 4);
 		ExtraParamsHelper.increaseFeatsCount(extraParams, 1);
-		extraParams.put(StringConstants.SIZE, Size.MEDIUM);
+		model.put(StringConstants.SIZE, Size.MEDIUM);
+		model.put(StringConstants.SPEED, 9.0f);
 	}
 	
 	private void nextLevel(CreatureModel model, Map<String, Object> extraParams) {
-		
+		ExtraParamsHelper.increaseSkillsRanks(extraParams, 1);
 	}
 
 }
