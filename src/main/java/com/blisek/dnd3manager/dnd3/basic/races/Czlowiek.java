@@ -7,6 +7,7 @@ import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.ExtraParamsHelper;
 import com.blisek.dnd3manager.dnd3.Size;
 import com.blisek.dnd3manager.dnd3.StringConstants;
+import com.blisek.dnd3manager.dnd3.basic.BasicLanguages;
 
 public class Czlowiek extends AbstractRace {
 	public static final String SYSTEM_NAME = "czlowiek";
@@ -33,10 +34,11 @@ public class Czlowiek extends AbstractRace {
 		Boolean firstLevel = ExtraParamsHelper.getBoolean(extraParams, StringConstants.P_FIRST_LEVEL);
 		if(firstLevel == null || !firstLevel) 
 			throw new IllegalStateException();
-		extraParams.remove(StringConstants.SIZE);
-		extraParams.remove(StringConstants.SPEED);
+		model.remove(StringConstants.SIZE);
+		model.remove(StringConstants.SPEED);
 		ExtraParamsHelper.increaseFeatsCount(extraParams, -1);
 		ExtraParamsHelper.increaseSkillsRanks(extraParams, -4);
+		model.getLanguages().add(BasicLanguages.COMMON);
 	}
 	
 	private void firstLevel(CreatureModel model, Map<String,Object> extraParams) {

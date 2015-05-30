@@ -20,6 +20,7 @@ public class StringConstants {
 	public static final String RACE = "race";
 	public static final String SIZE = "size";
 	public static final String SPEED = "speed";
+	public static final String LANGUAGES = "languages";
 	
 	
 	// PARAMETRY PRZEKAZYWANE PRZY TWORZENIU

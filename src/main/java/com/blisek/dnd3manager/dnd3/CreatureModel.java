@@ -1,9 +1,11 @@
 package com.blisek.dnd3manager.dnd3;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
@@ -122,6 +124,24 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	@SuppressWarnings("unchecked")
 	public Map<String, Integer> getSkillsMap() {
 		return (Map<String, Integer>)get(StringConstants.KEY_SKILLS);
+	}
+	
+	/**
+	 * Zwraca modyfikowalną listę języków. Lista nazw systemowych.
+	 * @return lista języków.
+	 */
+	@SuppressWarnings("unchecked")
+	public Set<String> getLanguages() {
+		Object lang = get(StringConstants.LANGUAGES);
+		Set<String> langList;
+		if(lang == null) {
+			langList = new HashSet<String>();
+			put(StringConstants.LANGUAGES, langList);
+		} else {
+			langList = (Set<String>)lang;
+		}
+		
+		return langList;
 	}
 
 	/**
