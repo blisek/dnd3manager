@@ -57,7 +57,7 @@ public class ExtraParamsHelper {
 	 * Zwraca wartość boolowską, bądź null jeśli klucza nie ma w słowniku.
 	 * @param extraParams
 	 * @param param
-	 * @return
+	 * @return wartość boolowską jeśli jest w słowniku, inaczej null.
 	 */
 	public static Boolean getBoolean(Map<String, Object> extraParams, String param) {
 		Object bool = extraParams.get(param);
@@ -65,5 +65,18 @@ public class ExtraParamsHelper {
 			return null;
 		else
 			return (Boolean)bool;
+	}
+	
+	/**
+	 * Zwraca wartość boolowską. Jeśli klucz nie jest obecny w słowniku zwracana
+	 * jest wartość false.
+	 * @param extraParams słownik parametrów.
+	 * @param param nazwa klucza w extraParams.
+	 * @return false jeśli klucz jest nieobecny w słowniku bądź wartość false
+	 * jest związana z tym kluczem. W innym wypadku - true.
+	 */
+	public static boolean getBooleanDefaultFalse(Map<String, Object> extraParams, String param) {
+		Object bool = extraParams.get(param);
+		return (bool == null) ? false : (boolean)bool;
 	}
 }

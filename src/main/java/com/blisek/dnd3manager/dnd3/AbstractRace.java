@@ -16,4 +16,13 @@ public abstract class AbstractRace implements RestrictedSystemObject {
 		return true;
 	}
 
+	/**
+	 * Jeżeli ta metoda zostanie wywołana na etapie innym niż w czasie tworzenia postaci
+	 * (wtedy gdy StringConstants.P_FIRST_LEVEL jest ustawione na true) powinien zostać
+	 * rzucony wyjątek IllegalStateException.
+	 */
+	public abstract void turnOffFor(CreatureModel model, Map<String, Object> extraParams);
+	
+	
+
 }

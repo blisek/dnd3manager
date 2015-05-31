@@ -19,8 +19,8 @@ public class Czlowiek extends AbstractRace {
 
 	@Override
 	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
-		Boolean firstEverLevel = ExtraParamsHelper.getBoolean(extraParams, StringConstants.P_FIRST_LEVEL);
-		if(firstEverLevel != null && firstEverLevel)
+		boolean firstEverLevel = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, StringConstants.P_FIRST_LEVEL);
+		if(firstEverLevel)
 			firstLevel(model, extraParams);
 		else
 			nextLevel(model, extraParams);
@@ -31,8 +31,8 @@ public class Czlowiek extends AbstractRace {
 		// jeśli rasa jest usuwana na innym etapie niż podczas
 		// tworzenia postaci zostanie zgłoszony wyjątek
 		// IllegalStateException.
-		Boolean firstLevel = ExtraParamsHelper.getBoolean(extraParams, StringConstants.P_FIRST_LEVEL);
-		if(firstLevel == null || !firstLevel) 
+		boolean firstLevel = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, StringConstants.P_FIRST_LEVEL);
+		if(!firstLevel) 
 			throw new IllegalStateException();
 		model.remove(StringConstants.SIZE);
 		model.remove(StringConstants.SPEED);

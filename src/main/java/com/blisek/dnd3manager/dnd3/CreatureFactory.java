@@ -40,6 +40,7 @@ public class CreatureFactory {
 		CreatureModel model = new CreatureModel();
 		Map<String, Object> extraParams = new HashMap<>();
 		
+		extraParams.put(StringConstants.P_FIRST_LEVEL, true);
 		extraParams.put(CreatureFactoryInterfaces.P_OTHER_PARAMETERS_FACTORY, otherFactory);
 		
 		int[] abilities = abilitiesFactory.getAbilities(extraParams);
