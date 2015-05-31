@@ -60,4 +60,9 @@ public class StringConstants {
 	 * w tym modelu.
 	 */
 	public static final String P_FIRST_LEVEL = "first_level";
+	
+	/**
+	 * Liczba dodatkowych języków do wybrania.
+	 */
+	public static final String P_PREMIUM_LANGUAGES = "premium_lang";
 }

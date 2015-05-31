@@ -46,6 +46,7 @@ public class Czlowiek extends AbstractRace {
 		ExtraParamsHelper.increaseFeatsCount(extraParams, 1);
 		model.put(StringConstants.SIZE, Size.MEDIUM);
 		model.put(StringConstants.SPEED, 9.0f);
+		ExtraParamsHelper.increaseInteger(extraParams, StringConstants.P_PREMIUM_LANGUAGES, 1);
 	}
 	
 	private void nextLevel(CreatureModel model, Map<String, Object> extraParams) {

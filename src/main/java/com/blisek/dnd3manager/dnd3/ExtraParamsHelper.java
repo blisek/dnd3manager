@@ -45,7 +45,7 @@ public class ExtraParamsHelper {
 	 * @param param nazwa parametru.
 	 * @return int lub 0 jeśli klucz nie istnieje.
 	 */
-	public static int getInteger(Map<String, Object> extraParams, String param) {
+	public static int getIntegerDefault0(Map<String, Object> extraParams, String param) {
 		Object integer = extraParams.get(param);
 		if(integer == null)
 			return 0;
@@ -78,5 +78,18 @@ public class ExtraParamsHelper {
 	public static boolean getBooleanDefaultFalse(Map<String, Object> extraParams, String param) {
 		Object bool = extraParams.get(param);
 		return (bool == null) ? false : (boolean)bool;
+	}
+	
+	/**
+	 * Zwiększa wartość int związaną z danym kluczem. Jeśli klucz nie istnieje
+	 * przyjmuje się jego poprzednią wartość za 0. W słowniku zostanie zapisana
+	 * wartość >= 0 nawet jeśli inc_val jest < 0.
+	 * @param extraParams słownik parametrów.
+	 * @param param nazwa parametru.
+	 * @param inc_val wartość o jaką zostanie zwiększona/zmniejszona obecna.
+	 */
+	public static void increaseInteger(Map<String, Object> extraParams, String param, int inc_val) {
+		int prev = getIntegerDefault0(extraParams, param);
+		extraParams.put(param, Math.max(prev + inc_val, 0));
 	}
 }
