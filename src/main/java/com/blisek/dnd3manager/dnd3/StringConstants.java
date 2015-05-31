@@ -12,6 +12,7 @@ public class StringConstants {
 	public static final String KEY_FEATS = "feats";
 	public static final String KEY_SKILLS = "skills";
 	public static final String KEY_CLASS = "classes";
+	public static final String KEY_SPECIAL_ABILITIES = "special_abilities";
 	
 	public static final String FORTITUDE = "fortitude";
 	public static final String REFLEX = "reflex";

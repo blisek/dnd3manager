@@ -1,13 +1,9 @@
 package com.blisek.dnd3manager.dnd3;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiFunction;
 
 /**
  * Model postaci. Metody wstawiania, zastępowania i usuwania zgłaszają
@@ -15,13 +11,13 @@ import java.util.function.BiFunction;
  * Metody putAll i replaceAll niedostępne.
  * @author bartek
  */
-public class CreatureModel extends ConcurrentHashMap<String, Object> {
+public class CreatureModel extends ObservableMap<String, Object> {
 	
 	public CreatureModel() {
-		observators = new LinkedList<CreatureModelObservator>();
+		super(false);
 		
 		// klucz przechowujący listę z poziomami zdobytymi w różnych klasach.
-		put(StringConstants.KEY_CLASS, new LinkedList<ClassLevelInfo>());
+		putWithoutNotify(StringConstants.KEY_CLASS, new LinkedList<ClassLevelInfo>());
 		
 		// klucz przechowujący informację o atutach dla tej postaci.
 		// Przechowywane są w postaci klucz-wartość, gdzie klucz to nazwa systemowa atutu
@@ -29,68 +25,15 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 		// wewnętrznego atutu.
 		// Np. jeśli atutem byłaby Biegłość w broni prostej, wartością mogłaby być lista broni
 		// w których postać tę biegłość posiada.
-		put(StringConstants.KEY_FEATS, new HashMap<String, Object>());
+		putWithoutNotify(StringConstants.KEY_FEATS, new ObservableMap<String, Object>(false));
 		
 		// Klucz przechowujący informację o posiadanych umiejętnościach.
 		// Dane przechowywane są w postaci klucz-wartość, gdzie klucz jest nazwą systemową
 		// umiejętności, a wartość liczbą rang.
-		put(StringConstants.KEY_SKILLS, new HashMap<String, Integer>());
-	}
-
-	@Override
-	public Object put(String key, Object value) {
-		Object o = super.put(key, value);
-		observators.parallelStream().forEach((CreatureModelObservator observer) -> observer.onNewKeyPut(this, key, o, value));
-		return o;
-	}
-
-	@Override
-	public void putAll(Map<? extends String, ? extends Object> m) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void replaceAll(
-			BiFunction<? super String, ? super Object, ? extends Object> function) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Object remove(Object key) {
-		Object o = super.remove(key);
-		observators.parallelStream().forEach((observer) -> observer.onKeyRemoved(this, (String)key, o));
-		return o;
-	}
-
-	@Override
-	public Object putIfAbsent(String key, Object value) {
-		Object o = super.putIfAbsent(key, value);
-		if(o == null)
-			observators.parallelStream().forEach((observer) -> observer.onNewKeyPut(this, key, o, value));
-		return o;
-	}
-
-	@Override
-	public boolean remove(Object key, Object value) {
-		boolean removed = super.remove(key, value);
-		if(removed)
-			observators.parallelStream().forEach((observer) -> observer.onKeyRemoved(this, (String)key, value));
-		return removed;
-	}
-
-	@Override
-	public boolean replace(String key, Object oldValue, Object newValue) {
-		boolean replaced = super.replace(key, oldValue, newValue);
-		if(replaced)
-			observators.parallelStream().forEach((observer) -> observer.onKeyReplaced(this, key, oldValue, newValue));
-		return replaced;
-	}
-
-	@Override
-	public Object replace(String key, Object value) {
-		Object obj = super.replace(key, value);
-		observators.parallelStream().forEach((observer) -> observer.onKeyReplaced(this, key, obj, value));
-		return obj;
+		putWithoutNotify(StringConstants.KEY_SKILLS, new ObservableMap<String, Integer>(false));
+		
+		// klucz przechowujący informacje o specjalnych umiejętnościach postaci.
+		putWithoutNotify(StringConstants.KEY_SPECIAL_ABILITIES, new ObservableMap<String, Object>(false));
 	}
 	
 	/**
@@ -111,8 +54,8 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	 * @return mapa atutów
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getFeatsMap() {
-		return (Map<String, Object>)get(StringConstants.KEY_FEATS);
+	public ObservableMap<String, Object> getFeatsMap() {
+		return (ObservableMap<String, Object>)get(StringConstants.KEY_FEATS);
 	}
 	
 	/**
@@ -122,8 +65,19 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	 * @return mapa umiejętności.
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Integer> getSkillsMap() {
-		return (Map<String, Integer>)get(StringConstants.KEY_SKILLS);
+	public ObservableMap<String, Integer> getSkillsMap() {
+		return (ObservableMap<String, Integer>)get(StringConstants.KEY_SKILLS);
+	}
+	
+	/**
+	 * Zwraca mapę klucz-wartość specjalnych umiejętności/zdolności postaci, gdzie
+	 * klucz jest nazwą systemową, a wartość jest do użytku wewnętrznego powiązanego
+	 * atutu. W tym słowniku może znaleźć się np. Szał barbarzyńcy.
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public ObservableMap<String, Object> getSpecialAbilitiesMap() {
+		return (ObservableMap<String, Object>)get(StringConstants.KEY_SPECIAL_ABILITIES);
 	}
 	
 	/**
@@ -136,7 +90,7 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 		Set<String> langList;
 		if(lang == null) {
 			langList = new HashSet<String>();
-			put(StringConstants.LANGUAGES, langList);
+			putWithoutNotify(StringConstants.LANGUAGES, langList);
 		} else {
 			langList = (Set<String>)lang;
 		}
@@ -149,7 +103,5 @@ public class CreatureModel extends ConcurrentHashMap<String, Object> {
 	 */
 	private static final long serialVersionUID = -5491615991801707374L;
 	
-	private List<CreatureModelObservator> observators;
-
 }
 

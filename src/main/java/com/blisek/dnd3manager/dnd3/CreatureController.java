@@ -1,6 +1,6 @@
 package com.blisek.dnd3manager.dnd3;
 
-public class CreatureController implements CreatureModelObservator {
+public class CreatureController implements MapObservator {
 	private CreatureModel model;
 
 	public CreatureController(CreatureModel model) {
@@ -80,71 +80,74 @@ public class CreatureController implements CreatureModelObservator {
 	
 	
 	@Override
-	public void onNewKeyPut(CreatureModel sender, String key, Object oldValue,
+	public void onNewKeyPut(Object sender, Object key, Object oldValue,
 			Object newValue) {
-		if(key.startsWith(StringConstants.STRENGTH)) {
+		String k = (String)key;
+		if(k.startsWith(StringConstants.STRENGTH)) {
 			getStrengthMod(true);
 		}
-		else if(key.startsWith(StringConstants.DEXTERITY)) {
+		else if(k.startsWith(StringConstants.DEXTERITY)) {
 			getDexterityMod(true);
 		}
-		else if(key.startsWith(StringConstants.CONSTITUTION)) {
+		else if(k.startsWith(StringConstants.CONSTITUTION)) {
 			getConstitutionMod(true);
 		}
-		else if(key.startsWith(StringConstants.INTELLIGENCE)) {
+		else if(k.startsWith(StringConstants.INTELLIGENCE)) {
 			getIntelligenceMod(true);
 		}
-		else if(key.startsWith(StringConstants.WISDOM)) {
+		else if(k.startsWith(StringConstants.WISDOM)) {
 			getWisdomMod(true);
 		}
-		else if(key.startsWith(StringConstants.CHARISMA)) {
+		else if(k.startsWith(StringConstants.CHARISMA)) {
 			getCharismaMod(true);
 		}
 	}
 
 
 	@Override
-	public void onKeyReplaced(CreatureModel sender, String key,
+	public void onKeyReplaced(Object sender, Object key,
 			Object oldValue, Object newValue) {
-		if(key.startsWith(StringConstants.STRENGTH)) {
+		String k = (String)key;
+		if(k.startsWith(StringConstants.STRENGTH)) {
 			getStrengthMod(true);
 		}
-		else if(key.startsWith(StringConstants.DEXTERITY)) {
+		else if(k.startsWith(StringConstants.DEXTERITY)) {
 			getDexterityMod(true);
 		}
-		else if(key.startsWith(StringConstants.CONSTITUTION)) {
+		else if(k.startsWith(StringConstants.CONSTITUTION)) {
 			getConstitutionMod(true);
 		}
-		else if(key.startsWith(StringConstants.INTELLIGENCE)) {
+		else if(k.startsWith(StringConstants.INTELLIGENCE)) {
 			getIntelligenceMod(true);
 		}
-		else if(key.startsWith(StringConstants.WISDOM)) {
+		else if(k.startsWith(StringConstants.WISDOM)) {
 			getWisdomMod(true);
 		}
-		else if(key.startsWith(StringConstants.CHARISMA)) {
+		else if(k.startsWith(StringConstants.CHARISMA)) {
 			getCharismaMod(true);
 		}
 	}
 
 
 	@Override
-	public void onKeyRemoved(CreatureModel sender, String key, Object oldValue) {
-		if(key.startsWith(StringConstants.STRENGTH)) {
+	public void onKeyRemoved(Object sender, Object key, Object oldValue) {
+		String k = (String)key;
+		if(k.startsWith(StringConstants.STRENGTH)) {
 			getStrengthMod(true);
 		}
-		else if(key.startsWith(StringConstants.DEXTERITY)) {
+		else if(k.startsWith(StringConstants.DEXTERITY)) {
 			getDexterityMod(true);
 		}
-		else if(key.startsWith(StringConstants.CONSTITUTION)) {
+		else if(k.startsWith(StringConstants.CONSTITUTION)) {
 			getConstitutionMod(true);
 		}
-		else if(key.startsWith(StringConstants.INTELLIGENCE)) {
+		else if(k.startsWith(StringConstants.INTELLIGENCE)) {
 			getIntelligenceMod(true);
 		}
-		else if(key.startsWith(StringConstants.WISDOM)) {
+		else if(k.startsWith(StringConstants.WISDOM)) {
 			getWisdomMod(true);
 		}
-		else if(key.startsWith(StringConstants.CHARISMA)) {
+		else if(k.startsWith(StringConstants.CHARISMA)) {
 			getCharismaMod(true);
 		}
 	}
