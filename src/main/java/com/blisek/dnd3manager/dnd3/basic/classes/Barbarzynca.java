@@ -12,12 +12,30 @@ import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.ExtraParamsHelper;
 import com.blisek.dnd3manager.dnd3.NumericConstants;
 import com.blisek.dnd3manager.dnd3.StringConstants;
+import com.blisek.dnd3manager.dnd3.basic.skills.Jezdziectwo;
+import com.blisek.dnd3manager.dnd3.basic.skills.Nasluchiwanie;
+import com.blisek.dnd3manager.dnd3.basic.skills.Plywanie;
+import com.blisek.dnd3manager.dnd3.basic.skills.PostepowanieZeZwierzetami;
+import com.blisek.dnd3manager.dnd3.basic.skills.RzemiosloInne;
+import com.blisek.dnd3manager.dnd3.basic.skills.RzemiosloPlatnerstwo;
+import com.blisek.dnd3manager.dnd3.basic.skills.RzemiosloWytwarzanieBroni;
+import com.blisek.dnd3manager.dnd3.basic.skills.RzemiosloWytwarzanieLukow;
+import com.blisek.dnd3manager.dnd3.basic.skills.Skakanie;
+import com.blisek.dnd3manager.dnd3.basic.skills.Wspinaczka;
+import com.blisek.dnd3manager.dnd3.basic.skills.WyczucieKierunku;
+import com.blisek.dnd3manager.dnd3.basic.skills.Zastraszanie;
+import com.blisek.dnd3manager.dnd3.basic.skills.ZnajomoscDziczy;
 
 public class Barbarzynca extends AbstractClass {
 	public static final String SYSTEM_NAME = "barbarzynca";
 	public static final String[] CLASS_SKILLS = {
-		
+		Jezdziectwo.SYSTEM_NAME, Nasluchiwanie.SYSTEM_NAME, Plywanie.SYSTEM_NAME,
+		PostepowanieZeZwierzetami.SYSTEM_NAME, RzemiosloInne.SYSTEM_NAME, RzemiosloPlatnerstwo.SYSTEM_NAME,
+		RzemiosloWytwarzanieBroni.SYSTEM_NAME, RzemiosloWytwarzanieLukow.SYSTEM_NAME,
+		Skakanie.SYSTEM_NAME, Wspinaczka.SYSTEM_NAME, WyczucieKierunku.SYSTEM_NAME,
+		Zastraszanie.SYSTEM_NAME, ZnajomoscDziczy.SYSTEM_NAME
 	};
+	
 	public static final String[] ABILITIES_PRIORITY = {
 		StringConstants.STRENGTH, StringConstants.DEXTERITY, StringConstants.CONSTITUTION,
 		StringConstants.WISDOM, StringConstants.CHARISMA, StringConstants.INTELLIGENCE
@@ -92,8 +110,7 @@ public class Barbarzynca extends AbstractClass {
 
 	@Override
 	public Collection<String> getClassSkills() {
-		throw new NotImplementedException();
-//		return Arrays.asList(Barbarzynca.CLASS_SKILLS);
+		return Arrays.asList(Barbarzynca.CLASS_SKILLS);
 	}
 
 	@Override

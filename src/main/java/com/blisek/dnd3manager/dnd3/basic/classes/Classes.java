@@ -7,7 +7,7 @@ import com.blisek.dnd3manager.dnd3.AbstractClass;
 
 public class Classes {
 	private static AbstractClass[] classes = {
-		
+		new Barbarzynca()
 	};
 	
 	public static Collection<AbstractClass> getClasses() {

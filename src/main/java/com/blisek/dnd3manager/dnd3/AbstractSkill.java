@@ -40,6 +40,14 @@ public abstract class AbstractSkill implements SystemObject {
 	public abstract boolean trainedOnly();
 	
 	/**
+	 * Obowiązuje kara do testów z pancerza.
+	 * @return true jeśli należy doliczyć karę do testów z pancerza.
+	 */
+	public boolean armorCheckPenalty() {
+		return false;
+	}
+	
+	/**
 	 * Informuje, czy model ma w danej umiejętności co najmniej 1 rangę.
 	 * @param model model postaci.
 	 * @param extraParams dodatkowe parametry.
