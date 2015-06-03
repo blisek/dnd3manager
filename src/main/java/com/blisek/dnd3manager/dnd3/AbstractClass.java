@@ -16,7 +16,8 @@ public abstract class AbstractClass implements RestrictedSystemObject {
 	public abstract int getHitDice();
 	
 	/**
-	 * Zwraca wszystkie premie do ataku dostępne aktualnie dzierżoną bronią.
+	 * Zwraca wszystkie premie do ataku liczone tylko na bazie bazowej premii do ataku.
+	 * Dzierżona broń nie jest brana pod uwagę z nielicznymi wyjątkami (np. mnich).
 	 * @param model model postaci.
 	 * @return tablica premii do ataku (nie uwzględniając innych premii jak
 	 * np. za atut, włączając w to biegłości w broniach).
@@ -61,14 +62,14 @@ public abstract class AbstractClass implements RestrictedSystemObject {
 	 * Zwraca listę umiejętności klasowych.
 	 * @return Iterable od listy umiejętności.
 	 */
-	public abstract Collection<AbstractSkill> getClassSkills();
+	public abstract Collection<String> getClassSkills();
 	
 	/**
 	 * Zwraca listę atrybutów w kolejności malejącej pod względem
 	 * znaczenia dla klasy (najważniejsze na początku).
 	 * @return lista prefiksów atrybutów.
 	 */
-	public abstract String[] getAbilitiesByPriorityDescending();
+	public abstract Collection<String> getAbilitiesByPriorityDescending();
 	
 	/**
 	 * Zwraca dopuszczalne charaktery dla tej klasy. Można sprawdzić czy dla danego

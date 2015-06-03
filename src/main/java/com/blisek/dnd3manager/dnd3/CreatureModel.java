@@ -97,6 +97,21 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		
 		return langList;
 	}
+	
+	/**
+	 * Zlicza liczbę poziomów w klasie o danej nazwie. Jeśli postać nie ma
+	 * żadnych poziomów w tej klasie zwracane jest 0.
+	 * @param classSystemName nazwa systemowa klasy.
+	 * @return liczba poziomów w klasie.
+	 */
+	public int sumLevelsIn(String classSystemName) {
+		if(classSystemName == null)
+			throw new NullPointerException();
+		return getClassInfos().parallelStream()
+				.filter(classInfo -> classInfo.systemName.equals(classSystemName))
+				.mapToInt(classInfo -> classInfo.level)
+				.sum();
+	}
 
 	/**
 	 * Serial version UID
