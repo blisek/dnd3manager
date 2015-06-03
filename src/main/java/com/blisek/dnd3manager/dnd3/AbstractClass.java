@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Collection;
+
 /**
  * Klasa bazowa dla wszystkich klas postaci.
  * @author bartek
@@ -17,7 +19,7 @@ public abstract class AbstractClass implements RestrictedSystemObject {
 	 * Zwraca wszystkie premie do ataku dostępne aktualnie dzierżoną bronią.
 	 * @param model model postaci.
 	 * @return tablica premii do ataku (nie uwzględniając innych premii jak
-	 * np. za atut).
+	 * np. za atut, włączając w to biegłości w broniach).
 	 */
 	public abstract int[] getAttacks(CreatureModel model);
 	
@@ -59,7 +61,14 @@ public abstract class AbstractClass implements RestrictedSystemObject {
 	 * Zwraca listę umiejętności klasowych.
 	 * @return Iterable od listy umiejętności.
 	 */
-	public abstract Iterable<AbstractSkill> getClassSkills();
+	public abstract Collection<AbstractSkill> getClassSkills();
+	
+	/**
+	 * Zwraca listę atrybutów w kolejności malejącej pod względem
+	 * znaczenia dla klasy (najważniejsze na początku).
+	 * @return lista prefiksów atrybutów.
+	 */
+	public abstract String[] getAbilitiesByPriorityDescending();
 	
 	/**
 	 * Zwraca dopuszczalne charaktery dla tej klasy. Można sprawdzić czy dla danego
