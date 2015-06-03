@@ -24,7 +24,9 @@ import com.blisek.dnd3manager.dnd3.basic.skills.Wspinaczka;
 import com.blisek.dnd3manager.dnd3.basic.skills.WyczucieKierunku;
 import com.blisek.dnd3manager.dnd3.basic.skills.Zastraszanie;
 import com.blisek.dnd3manager.dnd3.basic.skills.ZnajomoscDziczy;
+import static com.blisek.dnd3manager.dnd3.ExtraParamsHelper.getBooleanDefaultFalse;
 
+// TODO: DODAĆ ZMĘCZENIE PO SZALE (jako efekt)
 public class Barbarzynca extends AbstractClass {
 	public static final String SYSTEM_NAME = "barbarzynca";
 	public static final String[] CLASS_SKILLS = {
@@ -58,8 +60,13 @@ public class Barbarzynca extends AbstractClass {
 
 	@Override
 	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		// pierwszy poziom w klasie
+		if(getBooleanDefaultFalse(extraParams, Barbarzynca.SYSTEM_NAME)) { 
+			// TODO: dokończyć
+			
+		} else { // kolejne poziomy w klasie, oczekiwany parametr P_LEVEL
+			
+		}
 	}
 
 	@Override

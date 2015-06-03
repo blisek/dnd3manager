@@ -112,6 +112,21 @@ public class CreatureModel extends ObservableMap<String, Object> {
 				.mapToInt(classInfo -> classInfo.level)
 				.sum();
 	}
+	
+	public void addLevelTo(String systemName) {
+		if(systemName == null)
+			throw new NullPointerException();
+		List<ClassLevelInfo> cliList = getClassInfos();
+		int lastElement = cliList.size() - 1;
+		ClassLevelInfo cli = cliList.get(lastElement);
+		if(cli.systemName.equals(systemName)) {
+			cliList.add(new ClassLevelInfo(systemName, cliList.remove(lastElement).level + 1));
+		} else {
+			cli = new ClassLevelInfo(systemName, 1);
+		}
+		
+		cliList.add(cli);
+	}
 
 	/**
 	 * Serial version UID

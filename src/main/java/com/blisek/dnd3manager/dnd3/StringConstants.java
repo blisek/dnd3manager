@@ -61,7 +61,7 @@ public class StringConstants {
 	
 	/**
 	 * Klucz z wartością informującą czy to 1. poziom w ogóle
-	 * w tym modelu.
+	 * w tym modelu. Wartość boolowska.
 	 */
 	public static final String P_FIRST_LEVEL = "first_level";
 	
