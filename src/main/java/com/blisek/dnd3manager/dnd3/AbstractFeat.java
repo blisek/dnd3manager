@@ -3,6 +3,8 @@ package com.blisek.dnd3manager.dnd3;
 import java.util.Map;
 
 public abstract class AbstractFeat implements RestrictedSystemObject {
+	protected static final UsesInfo noUses = new UsesInfo(0, TimeUnit.ROUND);
+	protected static final Duration noDuration = new Duration(0, TimeUnit.ROUND);
 
 	@Override
 	public boolean isOnFor(CreatureModel model, Map<String, Object> extraParams) {
@@ -28,6 +30,40 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 */
 	public boolean canBeActivatedFor(CreatureModel model, Map<String, Object> extraParams) {
 		return !isPassive();
+	}
+	
+	/**
+	 * Informuje o maksymalnej liczbie użyć tego atutu dla
+	 * danego modelu np. barbarzyńca na 4p. może użyć szału
+	 * 2/d, dla tej sytuacji metoda zwróci UsesInfo(2, TimeUnit.DAY).
+	 * @param model model postaci.
+	 * @param extraParams dodatkowe parametry.
+	 * @return nienadpisana metoda zwraca (0, TimeUnit.ROUND).
+	 */
+	public UsesInfo getUsesCountFor(CreatureModel model, Map<String, Object> extraParams) {
+		return noUses;
+	}
+	
+	/**
+	 * Informuje ile jeszcze zostało użyć danego atutu. Domyślnie
+	 * zwraca to samo co getUsesCountFor. 
+	 * @param model model postaci.
+	 * @param extraParams dodatkowe parametry.
+	 * @return liczbę pozostałych użyć, bez jednostki czasu (sama liczba).
+	 */
+	public int getUsesLeftFor(CreatureModel model, Map<String, Object> extraParams) {
+		return getUsesCountFor(model, extraParams).usesPerTimeUnit;
+	}
+	
+	/**
+	 * Informuje ile ten efekt będzie trwać jeśli zostałby aktywowany
+	 * dla obecnego stanu modelu. Domyślnie zwraca 0 rund.
+	 * @param model model postaci.
+	 * @param extraParams dodatkowe parametry.
+	 * @return czas trwania.
+	 */
+	public Duration getDurationFor(CreatureModel model, Map<String, Object> extraParams) {
+		return noDuration;
 	}
 	
 	/**
