@@ -92,4 +92,11 @@ public class ExtraParamsHelper {
 		int prev = getIntegerDefault0(extraParams, param);
 		extraParams.put(param, Math.max(prev + inc_val, 0));
 	}
+	
+	public static void putIfGreater(Map<String, Object> extraParams, String param, int val) {
+		Object obj = extraParams.get(param);
+		int prev = (obj == null) ? 0 : (int)obj;
+		if(val > prev)
+			extraParams.put(param, val);
+	}
 }

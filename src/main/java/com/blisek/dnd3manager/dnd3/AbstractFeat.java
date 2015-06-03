@@ -28,7 +28,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param extraParams dodatkowe parametry.
 	 * @return true jeśli można aktywować go dla obecnego stanu modelu postaci.
 	 */
-	public boolean canBeActivatedFor(CreatureModel model, Map<String, Object> extraParams) {
+	public boolean canBeActivatedFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {
 		return !isPassive();
 	}
 	
@@ -40,7 +40,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param extraParams dodatkowe parametry.
 	 * @return nienadpisana metoda zwraca (0, TimeUnit.ROUND).
 	 */
-	public UsesInfo getUsesCountFor(CreatureModel model, Map<String, Object> extraParams) {
+	public UsesInfo getUsesCountFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {
 		return noUses;
 	}
 	
@@ -51,9 +51,17 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param extraParams dodatkowe parametry.
 	 * @return liczbę pozostałych użyć, bez jednostki czasu (sama liczba).
 	 */
-	public int getUsesLeftFor(CreatureModel model, Map<String, Object> extraParams) {
-		return getUsesCountFor(model, extraParams).usesPerTimeUnit;
+	public int getUsesLeftFor(CreatureModel model, CreatureController controller,Map<String, Object> extraParams) {
+		return getUsesCountFor(model, controller, extraParams).usesPerTimeUnit;
 	}
+	
+	/**
+	 * Resetuje licznik użyć tego atutu. Wartość licznika pobiera się
+	 * metodą getUsesLeftFor.
+	 * @param model model postaci.
+	 * @param extraParams dodatkowe parametry.
+	 */
+	public void resetUsesLeftCounterFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {}
 	
 	/**
 	 * Informuje ile ten efekt będzie trwać jeśli zostałby aktywowany
@@ -62,7 +70,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param extraParams dodatkowe parametry.
 	 * @return czas trwania.
 	 */
-	public Duration getDurationFor(CreatureModel model, Map<String, Object> extraParams) {
+	public Duration getDurationFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {
 		return noDuration;
 	}
 	
@@ -72,7 +80,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param model model dla którego atut zostanie aktywowany.
 	 * @param extraParams dodatkowe parametry.
 	 */
-	public void activateFor(CreatureModel model, Map<String, Object> extraParams) {}
+	public void activateFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {}
 	
 	/**
 	 * Deaktywuje wcześniej aktywowany atut dla danego modelu. Jeśli atut
@@ -81,7 +89,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	 * @param model model postaci.
 	 * @param extraParams dodatkowe parametry.
 	 */
-	public void deactivateFor(CreatureModel model, Map<String, Object> extraParams) {}
+	public void deactivateFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {}
 	
 	/**
 	 * Zwraca typ atutu. Domyślnie FeatType.GENERAL. 

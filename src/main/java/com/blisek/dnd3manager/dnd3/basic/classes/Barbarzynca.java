@@ -7,7 +7,6 @@ import java.util.Map;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import com.blisek.dnd3manager.dnd3.AbstractClass;
-import com.blisek.dnd3manager.dnd3.AbstractSkill;
 import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.ExtraParamsHelper;
 import com.blisek.dnd3manager.dnd3.NumericConstants;

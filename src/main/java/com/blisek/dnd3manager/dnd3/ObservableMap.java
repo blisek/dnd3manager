@@ -59,6 +59,14 @@ public class ObservableMap<K, V> extends HashMap<K, V> {
 		return obj;
 	}
 
+	@Override
+	public boolean remove(Object key, Object value) {
+		boolean result = super.remove(key, value);
+		if(result)
+			notifyObserversRemove(key, value);
+		return result;
+	}
+
 	private void notifyObserversPut(final Object key, final Object oVal, final Object nVal) {
 		if(observers == null)
 			return;

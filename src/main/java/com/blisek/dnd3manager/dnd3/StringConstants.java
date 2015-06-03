@@ -17,11 +17,14 @@ public class StringConstants {
 	public static final String FORTITUDE = "fortitude";
 	public static final String REFLEX = "reflex";
 	public static final String WILL = "will";
+	public static final String WILL_MORALE = WILL + "_morale";
 	
 	public static final String RACE = "race";
 	public static final String SIZE = "size";
 	public static final String SPEED = "speed";
 	public static final String LANGUAGES = "languages";
+	
+	public static final String AC = "ac"; // KP
 	
 	
 	// PARAMETRY PRZEKAZYWANE PRZY TWORZENIU
@@ -66,4 +69,10 @@ public class StringConstants {
 	 * Liczba dodatkowych języków do wybrania.
 	 */
 	public static final String P_PREMIUM_LANGUAGES = "premium_lang";
+	
+	/**
+	 * Liczba użyć. Parametr może być wykorzystywany przy ustawianiu
+	 * liczby użyć dla jakiejś zdolności/atutu.
+	 */
+	public static final String P_USES_COUNT = "uses_count";
 }
