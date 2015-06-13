@@ -1,8 +1,11 @@
 package com.blisek.dnd3manager.dnd3.basic.classes;
 
+import static com.blisek.dnd3manager.dnd3.ExtraParamsHelper.getBooleanDefaultFalse;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -24,7 +27,6 @@ import com.blisek.dnd3manager.dnd3.basic.skills.Wspinaczka;
 import com.blisek.dnd3manager.dnd3.basic.skills.WyczucieKierunku;
 import com.blisek.dnd3manager.dnd3.basic.skills.Zastraszanie;
 import com.blisek.dnd3manager.dnd3.basic.skills.ZnajomoscDziczy;
-import static com.blisek.dnd3manager.dnd3.ExtraParamsHelper.getBooleanDefaultFalse;
 
 // TODO: DODAĆ ZMĘCZENIE PO SZALE (jako efekt)
 public class Barbarzynca extends AbstractClass {
@@ -82,11 +84,10 @@ public class Barbarzynca extends AbstractClass {
 	@Override
 	public int[] getAttacks(CreatureModel model) {
 		int level = model.sumLevelsIn(Barbarzynca.SYSTEM_NAME);
-		int[] attacks = new int[Math.min((level-1) / 5 + 1, 4)];
 		int baseAttack = getBaseAttackMod(level);
-		for(int i = 0; i < attacks.length; ++i)
-			attacks[i] = baseAttack - i * 5;
-		return attacks;
+		return IntStream.range(0, Math.min((level-1) / 5 + 1, 4))
+			.map(i -> baseAttack - i * 5)
+			.toArray();
 	}
 
 	@Override

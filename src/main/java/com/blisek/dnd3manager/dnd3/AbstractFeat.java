@@ -76,7 +76,8 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	
 	/**
 	 * Jeśli atut jest aktywny (niepasywny) ta metoda aktywuje wszystkie modyfikatory
-	 * dane przezeń. Jeśli jest pasywny nie powinien nic robić.
+	 * dane przezeń. Jeśli jest pasywny nie powinien nic robić. Może dodać efekty do
+	 * extraParams.
 	 * @param model model dla którego atut zostanie aktywowany.
 	 * @param extraParams dodatkowe parametry.
 	 */
@@ -85,7 +86,7 @@ public abstract class AbstractFeat implements RestrictedSystemObject {
 	/**
 	 * Deaktywuje wcześniej aktywowany atut dla danego modelu. Jeśli atut
 	 * nie był wcześniej aktywowany metoda nie powinna w żaden sposób wpłynąć
-	 * na zmianę wewnętrznego stanu modelu.
+	 * na zmianę wewnętrznego stanu modelu. Może dodać efekty do extraParams.
 	 * @param model model postaci.
 	 * @param extraParams dodatkowe parametry.
 	 */

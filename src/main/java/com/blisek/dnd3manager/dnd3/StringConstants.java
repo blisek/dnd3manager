@@ -75,4 +75,10 @@ public class StringConstants {
 	 * liczby użyć dla jakiejś zdolności/atutu.
 	 */
 	public static final String P_USES_COUNT = "uses_count";
+	
+	/**
+	 * Lista efektów do zastosowania. Jeśli istnieje taki klucz w słowniku,
+	 * powinien być typem List<Effect>.
+	 */
+	public static final String P_EFFECTS = "effects";
 }

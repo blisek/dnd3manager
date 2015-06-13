@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,5 +100,26 @@ public class ExtraParamsHelper {
 		int prev = (obj == null) ? 0 : (int)obj;
 		if(val > prev)
 			extraParams.put(param, val);
+	}
+	
+	/**
+	 * Zwraca listę przechowywaną pod danym kluczem. Jeśli lista nie istnieje
+	 * tworzy nową przy użyciu ArrayList.
+	 * @param extraParams słownik parametrów.
+	 * @param param nazwa parametru.
+	 * @return lista.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> List<E> getListOrCreateNewOne(Map<String, Object> extraParams, String param) {
+		Object obj = extraParams.get(param);
+		List<E> retList;
+		if(obj == null) {
+			retList = new ArrayList<E>();
+			extraParams.put(param, retList);
+		} else {
+			retList = (List<E>)obj;
+		}
+		
+		return retList;
 	}
 }
