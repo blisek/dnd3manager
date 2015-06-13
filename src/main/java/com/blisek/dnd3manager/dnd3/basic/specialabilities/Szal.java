@@ -123,7 +123,7 @@ public class Szal extends AbstractSpecialAbility {
 		model.remove(PARAM_CON_BONUS);
 		model.remove(PARAM_KP_BONUS);
 		
-		params[ELEMENT_LEFTUSES] = (int)params[ELEMENT_LEFTUSES] - 1;
+		// TODO: Dodać zmęczenie po szale.
 	}
 
 	@Override
