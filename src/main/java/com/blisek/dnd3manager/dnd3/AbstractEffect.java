@@ -2,7 +2,7 @@ package com.blisek.dnd3manager.dnd3;
 
 import java.util.Map;
 
-public abstract class Effect implements SystemObject {
+public abstract class AbstractEffect implements SystemObject {
 	protected final static Duration NO_DURATION = new Duration(0, TimeUnit.ROUND);
 	
 	
