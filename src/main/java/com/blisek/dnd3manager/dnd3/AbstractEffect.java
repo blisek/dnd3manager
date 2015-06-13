@@ -15,4 +15,12 @@ public abstract class AbstractEffect implements SystemObject {
 	 */
 	public abstract Duration getDurationFor(CreatureModel model, 
 			CreatureController controller, Map<String, Object> extraParams);
+
+
+	@Override
+	public boolean isOnFor(CreatureModel model, Map<String, Object> extraParams) {
+		return model.getEffectsMap().containsKey(getSystemName());
+	}
+	
+	
 }

@@ -34,6 +34,9 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		
 		// klucz przechowujący informacje o specjalnych umiejętnościach postaci.
 		putWithoutNotify(StringConstants.KEY_SPECIAL_ABILITIES, new ObservableMap<String, Object>(false));
+		
+		// klucz przechowujący aktywowane efekty dla tego modelu.
+		putWithoutNotify(StringConstants.KEY_EFFECTS, new ObservableMap<String, Object>(false));
 	}
 	
 	/**
@@ -78,6 +81,16 @@ public class CreatureModel extends ObservableMap<String, Object> {
 	@SuppressWarnings("unchecked")
 	public ObservableMap<String, Object> getSpecialAbilitiesMap() {
 		return (ObservableMap<String, Object>)get(StringConstants.KEY_SPECIAL_ABILITIES);
+	}
+	
+	/**
+	 * Zwraca mapę elementów klucz-wartość, gdzie klucz jest nazwą systemową efektu,
+	 * a wartość danymi do użytku efektu.
+	 * @return mapa efektów.
+	 */
+	@SuppressWarnings("unchecked")
+	public ObservableMap<String, Object> getEffectsMap() {
+		return (ObservableMap<String, Object>)get(StringConstants.KEY_EFFECTS);
 	}
 	
 	/**
