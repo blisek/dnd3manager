@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +39,71 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		
 		// klucz przechowujący aktywowane efekty dla tego modelu.
 		putWithoutNotify(StringConstants.KEY_EFFECTS, new ObservableMap<String, Object>(false));
+		
+		// przechowuje specjalne flagi opisujące stan postaci. Np. czy może się poruszać, czy jest żywa etc.
+		creatureFlags = new BitSet();
+	}
+	
+	/**
+	 * Informuje czy flaga jest ustawiona na true.
+	 * @param bitNum numer bitu z klasy CreatureFlags.
+	 * @return true jeśli flaga jest ustawiona inaczej false.
+	 */
+	public boolean isFlagOn(int bitNum) {
+		return creatureFlags.get(bitNum);
+	}
+	
+	/**
+	 * Ustawia flagę na true. Jeśli wcześniej flaga nie była
+	 * ustawiona informuje o zmianie wszystkich obserwatorów
+	 * flag.
+	 * @param bitNum numer bitu z klasy CreatureFlags.
+	 */
+	public void turnFlagOn(int bitNum) {
+		if(creatureFlags.get(bitNum))
+			return;
+		else {
+			creatureFlags.set(bitNum, true);
+			notifyFlagObservers(bitNum, false, true);
+		}
+	}
+	
+	/**
+	 * Ustawia flagę na false. Jeśli wcześniej flaga była włączona,
+	 * informuje o zmianie wszystkich obserwatorów flag.
+	 * @param bitNum numer bitu z klasy CreatureFlags.
+	 */
+	public void turnFlagOff(int bitNum) {
+		if(!creatureFlags.get(bitNum))
+			return;
+		else {
+			creatureFlags.set(bitNum, false);
+			notifyFlagObservers(bitNum, true, false);
+		}
+	}
+	
+	/**
+	 * Dodaje obserwatora flag tego modelu.
+	 * @param observer obserwator.
+	 * @return true jeśli obserwator został zarejestrowany.
+	 */
+	public boolean addFlagObserver(FlagObserver observer) {
+		if(observer == null)
+			throw new NullPointerException();
+		if(flagObservers == null)
+			flagObservers = new ArrayList<FlagObserver>(2);
+		return flagObservers.add(observer);
+	}
+	
+	/**
+	 * Usuwa obserwatora flag tego modelu.
+	 * @param observer wcześniej zarejestrowany obserwator.
+	 * @return true jeśli rozpoznano i usunięto obserwatora.
+	 */
+	public boolean removeFlagObserver(FlagObserver observer) {
+		if(observer == null)
+			throw new NullPointerException();
+		return flagObservers.remove(observer);
 	}
 	
 	/**
@@ -140,11 +207,18 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		
 		cliList.add(cli);
 	}
+	
+	private void notifyFlagObservers(int bNum, boolean oVal, boolean nVal) {
+		flagObservers.stream().forEach(o -> o.flagChanged(this, bNum, oVal, nVal));
+	}
 
 	/**
 	 * Serial version UID
 	 */
 	private static final long serialVersionUID = -5491615991801707374L;
+	
+	private final BitSet creatureFlags;
+	private List<FlagObserver> flagObservers;
 	
 }
 

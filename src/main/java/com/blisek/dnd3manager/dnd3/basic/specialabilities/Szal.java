@@ -86,6 +86,7 @@ public class Szal extends AbstractSpecialAbility {
 	@Override
 	public Duration getDurationFor(CreatureModel model, CreatureController controller,
 			Map<String, Object> extraParams) {
+		// modyfikator z budowy nie jest wyliczany na nowo!
 		return new Duration(3 + controller.getConstitutionMod(false), TimeUnit.ROUND);
 	}
 

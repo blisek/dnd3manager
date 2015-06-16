@@ -1,13 +1,29 @@
 package com.blisek.dnd3manager.dnd3;
 
+
 /**
  * Reprezentuje czas trwania lub liczbę użyć.
  * @author bartek
  *
  */
-public final class Duration implements Comparable<Duration> {
-	public int duration;
-	public TimeUnit timeUnit;
+public class Duration implements Comparable<Duration> {
+	// SPECJALNE CZASY
+	public static final Duration UNTIL_END_OF_FIGHT = new Duration(-1, TimeUnit.ROUND) {
+		@Override
+		public boolean equals(Object obj) {
+			if(this == obj)
+				return true;
+			return false;
+		}
+		
+		@Override
+		public int hashCode() {
+			return System.identityHashCode(this);
+		}
+	};
+	
+	public final int duration;
+	public final TimeUnit timeUnit;
 	
 	public Duration(int duration, TimeUnit timeUnit) {
 		super();
