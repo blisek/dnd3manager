@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Map;
+
 /**
  * Klasa zawierająca kontekst, używany przez inne
  * narzędzia, udostępniający informacje o wszystkich,
@@ -8,6 +10,13 @@ package com.blisek.dnd3manager.dnd3;
  * @author bartek
  *
  */
-public class Context {
-
+public enum Context {
+	INSTANCE;
+	
+	public Map<String, AbstractEffect> getEffects() {
+		return effects;
+	}
+	
+	
+	private Map<String, AbstractEffect> effects;
 }

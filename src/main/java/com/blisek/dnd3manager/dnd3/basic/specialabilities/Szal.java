@@ -1,24 +1,30 @@
 package com.blisek.dnd3manager.dnd3.basic.specialabilities;
 
+import java.util.List;
 import java.util.Map;
 
+import com.blisek.dnd3manager.dnd3.AbstractEffect;
 import com.blisek.dnd3manager.dnd3.AbstractSpecialAbility;
+import com.blisek.dnd3manager.dnd3.Context;
 import com.blisek.dnd3manager.dnd3.CreatureController;
 import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.Duration;
 import com.blisek.dnd3manager.dnd3.ExtraParamsHelper;
 import com.blisek.dnd3manager.dnd3.FeatType;
+import com.blisek.dnd3manager.dnd3.MapObservator;
 import com.blisek.dnd3manager.dnd3.StringConstants;
 import com.blisek.dnd3manager.dnd3.TimeUnit;
 import com.blisek.dnd3manager.dnd3.UsesInfo;
+import com.blisek.dnd3manager.dnd3.basic.effects.ZmeczeniePoSzale;
 
-public class Szal extends AbstractSpecialAbility {
+public class Szal extends AbstractSpecialAbility implements MapObservator {
 	public static final String SYSTEM_NAME = "szal";
 	public static final String P_ULEPSZONY_SZAL = "ul_szal";
 	
 	private static final int ELEMENT_USESINFO = 0;
 	private static final int ELEMENT_ISIMPROVED = 1;
 	private static final int ELEMENT_LEFTUSES = 2;
+	private static final int ELEMENT_TIRELESS_RAGE = 3;
 	
 	private static final String PARAM_STR_BONUS = String.format("%s_%s", StringConstants.STRENGTH, Szal.SYSTEM_NAME);
 	private static final String PARAM_CON_BONUS = String.format("%s_%s", StringConstants.CONSTITUTION, Szal.SYSTEM_NAME);
@@ -42,7 +48,7 @@ public class Szal extends AbstractSpecialAbility {
 		// jest liczbą użyć, a drugi jeśli jest ustawiony na true oznacza, że
 		// postać posiada potężniejszy szał.
 		boolean isImproved = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, P_ULEPSZONY_SZAL);
-		model.getSpecialAbilitiesMap().put(Szal.SYSTEM_NAME, new Object[] { ui, isImproved, ui.usesPerTimeUnit });
+		model.getSpecialAbilitiesMap().put(Szal.SYSTEM_NAME, new Object[] { ui, isImproved, ui.usesPerTimeUnit, false });
 	}
 
 	@Override
@@ -94,6 +100,8 @@ public class Szal extends AbstractSpecialAbility {
 	public void activateFor(CreatureModel model, CreatureController controller, Map<String, Object> extraParams) {
 		Object[] params = (Object[])model.getSpecialAbilitiesMap().get(Szal.SYSTEM_NAME);
 		
+		model.addObservator(this);
+		
 		if((boolean)params[ELEMENT_ISIMPROVED]) {
 			model.put(PARAM_STR_BONUS, 6);
 			model.put(PARAM_CON_BONUS, 6);
@@ -124,12 +132,80 @@ public class Szal extends AbstractSpecialAbility {
 		model.remove(PARAM_CON_BONUS);
 		model.remove(PARAM_KP_BONUS);
 		
-		// TODO: Dodać zmęczenie po szale.
+		if(!(boolean)params[ELEMENT_TIRELESS_RAGE]) { // dopóki barbarzyńca męczy się po szale (jego poziom < 20) zwracany jest efekt ZmeczeniePoSzale.
+			List<AbstractEffect> l = ExtraParamsHelper.<AbstractEffect>getListOrCreateNewOne(extraParams, StringConstants.P_EFFECTS);
+			l.add(Context.INSTANCE.getEffects().get(ZmeczeniePoSzale.SYSTEM_NAME));
+		}
+		
+		model.removeObservator(this);
 	}
 
 	@Override
 	public FeatType getFeatType() {
 		return FeatType.FIGHTER_BONUS;
+	}
+
+
+	@Override
+	public void onNewKeyPut(Object sender, Object key, Object oldValue,
+			Object newValue) {
+		if(!((String)key).startsWith((StringConstants.WILL_MORALE)))
+			return;
+		CreatureModel sndr = (CreatureModel)sender;
+		Object tmp = sndr.getSpecialAbilitiesMap().get(Szal.SYSTEM_NAME);
+		if(tmp == null) { // postać nie posiada tej zdolności, a z jakiegoś powodu jest obserwowana. Należy ją usunąć.
+			sndr.removeObservator(this);
+			return;
+		}
+		Object[] params = (Object[])tmp;
+		int nVal = (int)newValue;
+		if(nVal < 3 && (boolean)params[ELEMENT_ISIMPROVED]) {
+			sndr.put(StringConstants.WILL_MORALE, 3);
+		}
+		else if(nVal < 2) {
+			sndr.put(StringConstants.WILL_MORALE, 2);
+		}
+	}
+
+	@Override
+	public void onKeyReplaced(Object sender, Object key, Object oldValue,
+			Object newValue) {
+		if(!((String)key).startsWith(StringConstants.WILL_MORALE))
+			return;
+		CreatureModel sndr = (CreatureModel)sender;
+		Object tmp = sndr.getSpecialAbilitiesMap().get(Szal.SYSTEM_NAME);
+		if(tmp == null) { // postać nie posiada tej zdolności, a z jakiegoś powodu jest obserwowana. Należy wypisać obserwatora.
+			sndr.removeObservator(this);
+			return;
+		}
+		Object[] params = (Object[])tmp;
+		int nVal = (int)newValue;
+		if(nVal < 3 && (boolean)params[ELEMENT_ISIMPROVED]) {
+			sndr.put(StringConstants.WILL_MORALE, 3);
+		}
+		else if(nVal < 2) {
+			sndr.put(StringConstants.WILL_MORALE, 2);
+		}
+	}
+
+	@Override
+	public void onKeyRemoved(Object sender, Object key, Object oldValue) {
+		// jeśli usunięto - wstaw na nowo
+		if(!((String)key).startsWith(StringConstants.WILL_MORALE))
+			return;
+		CreatureModel sndr = (CreatureModel)sender;
+		Object tmp = sndr.getSpecialAbilitiesMap().get(Szal.SYSTEM_NAME);
+		if(tmp == null) { // postać nie posiada tej zdolności, a z jakiegoś powodu jest obserwowana. Należy wypisać obserwatora.
+			sndr.removeObservator(this);
+			return;
+		}
+		Object[] params = (Object[])tmp;
+		if((boolean)params[ELEMENT_ISIMPROVED]) {
+			sndr.put(StringConstants.WILL_MORALE, 3);
+		}
+		else {
+			sndr.put(StringConstants.WILL_MORALE, 2);
+		}
 	}
 
 

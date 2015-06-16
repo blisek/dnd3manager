@@ -25,9 +25,9 @@ public class ZmeczeniePoSzale extends AbstractEffect implements FlagObserver {
 		model.getEffectsMap().put(SYSTEM_NAME, 0);
 		model.put(STR_KEY, -2);
 		model.put(DEX_KEY, -2);
+		model.addFlagObserver(this);
 		model.turnFlagOn(CreatureFlags.CANT_RUN);
 		model.turnFlagOn(CreatureFlags.CANT_CHARGE);
-		model.addFlagObserver(this);
 	}
 
 	@Override
