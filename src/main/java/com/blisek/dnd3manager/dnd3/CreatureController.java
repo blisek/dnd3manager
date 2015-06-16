@@ -1,12 +1,14 @@
 package com.blisek.dnd3manager.dnd3;
 
-public class CreatureController implements MapObservator {
+public class CreatureController implements MapObservator, FlagObserver {
 	private CreatureModel model;
 
 	public CreatureController(CreatureModel model) {
 		if(model == null)
 			throw new NullPointerException("model");
 		this.model = model;
+		model.addObservator(this);
+		model.addFlagObserver(this);
 	}
 	
 	/**
@@ -150,6 +152,14 @@ public class CreatureController implements MapObservator {
 		else if(k.startsWith(StringConstants.CHARISMA)) {
 			getCharismaMod(true);
 		}
+	}
+
+
+	@Override
+	public void flagChanged(Object sender, int bitNum, boolean oldValue,
+			boolean newValue) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**

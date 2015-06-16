@@ -26,8 +26,7 @@ public class CreatureControllerTest {
 		assertEquals(3, controller.getStrengthMod(false));
 		
 		model.put(StringConstants.STRENGTH + "_bonus", 4);
-		assertEquals(3, controller.getStrengthMod(false));
-		assertEquals(5, controller.getStrengthMod(true));
+		assertEquals(5, controller.getStrengthMod(false));
 	}
 
 	@Test
@@ -36,8 +35,7 @@ public class CreatureControllerTest {
 		assertEquals(3, controller.getDexterityMod(false));
 		
 		model.put(StringConstants.DEXTERITY + "_bonus", 4);
-		assertEquals(3, controller.getDexterityMod(false));
-		assertEquals(5, controller.getDexterityMod(true));
+		assertEquals(5, controller.getDexterityMod(false));
 	}
 
 	@Test
@@ -46,8 +44,7 @@ public class CreatureControllerTest {
 		assertEquals(3, controller.getConstitutionMod(false));
 		
 		model.put(StringConstants.CONSTITUTION + "_bonus", 4);
-		assertEquals(3, controller.getConstitutionMod(false));
-		assertEquals(5, controller.getConstitutionMod(true));
+		assertEquals(5, controller.getConstitutionMod(false));
 	}
 
 	@Test
@@ -56,8 +53,7 @@ public class CreatureControllerTest {
 		assertEquals(3, controller.getIntelligenceMod(false));
 		
 		model.put(StringConstants.INTELLIGENCE + "_bonus", 4);
-		assertEquals(3, controller.getIntelligenceMod(false));
-		assertEquals(5, controller.getIntelligenceMod(true));
+		assertEquals(5, controller.getIntelligenceMod(false));
 	}
 
 	@Test
@@ -66,8 +62,7 @@ public class CreatureControllerTest {
 		assertEquals(-5, controller.getWisdomMod(false));
 		
 		model.put(StringConstants.WISDOM + "_bonus", 3);
-		assertEquals(-5, controller.getWisdomMod(false));
-		assertEquals(-3, controller.getWisdomMod(true));
+		assertEquals(-3, controller.getWisdomMod(false));
 	}
 
 	@Test
@@ -76,8 +71,7 @@ public class CreatureControllerTest {
 		assertEquals(3, controller.getCharismaMod(false));
 		
 		model.put(StringConstants.CHARISMA + "_bonus", 4);
-		assertEquals(3, controller.getCharismaMod(false));
-		assertEquals(5, controller.getCharismaMod(true));
+		assertEquals(5, controller.getCharismaMod(false));
 	}
 
 }
