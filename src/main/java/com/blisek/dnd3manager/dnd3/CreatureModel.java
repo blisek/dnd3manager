@@ -209,7 +209,8 @@ public class CreatureModel extends ObservableMap<String, Object> {
 	}
 	
 	private void notifyFlagObservers(int bNum, boolean oVal, boolean nVal) {
-		flagObservers.stream().forEach(o -> o.flagChanged(this, bNum, oVal, nVal));
+		if(flagObservers != null)
+			flagObservers.stream().forEach(o -> o.flagChanged(this, bNum, oVal, nVal));
 	}
 
 	/**
