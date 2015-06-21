@@ -20,6 +20,7 @@ import com.blisek.dnd3manager.dnd3.basic.effects.ZmeczeniePoSzale;
 public class Szal extends AbstractSpecialAbility implements MapObservator {
 	public static final String SYSTEM_NAME = "szal";
 	public static final String P_ULEPSZONY_SZAL = "ul_szal";
+	public static final String P_BEZ_ZMECZENIA = "szal_bezzm";
 	
 	private static final int ELEMENT_USESINFO = 0;
 	private static final int ELEMENT_ISIMPROVED = 1;
@@ -44,11 +45,13 @@ public class Szal extends AbstractSpecialAbility implements MapObservator {
 	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
 		Object uiObj = extraParams.get(StringConstants.P_USES_COUNT);
 		UsesInfo ui = (uiObj == null) ? new UsesInfo(1, TimeUnit.DAY) : (UsesInfo)uiObj;
-		// atut przechowuje parę obiektów (UsesInfo, boolean), gdzie pierwszy element
+		// atut przechowuje czwórkę obiektów (UsesInfo, boolean, int, boolean), gdzie pierwszy element
 		// jest liczbą użyć, a drugi jeśli jest ustawiony na true oznacza, że
-		// postać posiada potężniejszy szał.
+		// postać posiada potężniejszy szał. Trzeci to liczba pozostałych użyć, czwarty
+		// jeśli true jest traktowany jako szał bez zmęczenia.
 		boolean isImproved = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, P_ULEPSZONY_SZAL);
-		model.getSpecialAbilitiesMap().put(Szal.SYSTEM_NAME, new Object[] { ui, isImproved, ui.usesPerTimeUnit, false });
+		boolean tirelessRage = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, P_BEZ_ZMECZENIA);
+		model.getSpecialAbilitiesMap().put(Szal.SYSTEM_NAME, new Object[] { ui, isImproved, ui.usesPerTimeUnit, tirelessRage });
 	}
 
 	@Override

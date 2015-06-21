@@ -6,6 +6,17 @@ package com.blisek.dnd3manager.dnd3;
  *
  */
 public final class CreatureFlags {
+	
+	/**
+	 * Jeśli flaga jest włączona postać nie może być flankowana.
+	 */
+	public static final int CANNOT_BE_FLANKED = 13;
+	
+	/**
+	 * Jeśli flaga jest włączona premia ze zręczności może być
+	 * wliczana jeśli postać została zaskoczona.
+	 */
+	public static final int DONT_LOOSE_DEX_AC_BONUS = 14;
 
 	/**
 	 * Jeśli ustawiony na true postać nie może biegać.

@@ -63,7 +63,7 @@ public class Barbarzynca extends AbstractClass {
 	@Override
 	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
 		// pierwszy poziom w klasie
-		if(getBooleanDefaultFalse(extraParams, Barbarzynca.SYSTEM_NAME)) { 
+		if(getBooleanDefaultFalse(extraParams, StringConstants.P_FIRST_LEVEL)) { 
 			// TODO: dokończyć
 			
 		} else { // kolejne poziomy w klasie, oczekiwany parametr P_LEVEL
