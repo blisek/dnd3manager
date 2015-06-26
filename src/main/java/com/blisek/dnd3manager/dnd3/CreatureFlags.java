@@ -8,6 +8,11 @@ package com.blisek.dnd3manager.dnd3;
 public final class CreatureFlags {
 	
 	/**
+	 * Jeśli flaga jest włączona postać posiada redukcję obrażeń jakiegoś typu.
+	 */
+	public static final int HAS_DAMAGE_REDUCTION = 12;
+	
+	/**
 	 * Jeśli flaga jest włączona postać nie może być flankowana.
 	 */
 	public static final int CANNOT_BE_FLANKED = 13;

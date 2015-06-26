@@ -2,9 +2,11 @@ package com.blisek.dnd3manager.dnd3;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,6 +44,9 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		
 		// przechowuje specjalne flagi opisujące stan postaci. Np. czy może się poruszać, czy jest żywa etc.
 		creatureFlags = new BitSet();
+		
+//		// przechowuje informacje o redukcji obrażeń
+//		putWithoutNotify(StringConstants.KEY_DAMAGE_REDUCTION, new HashMap<Integer, Integer>());
 	}
 	
 	/**
@@ -104,6 +109,43 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		if(observer == null)
 			throw new NullPointerException();
 		return flagObservers.remove(observer);
+	}
+	
+	/**
+	 * Ustawia redukcję obrażeń dla danego typu obrażeń.
+	 * @param reductionType typ obrażeń z klasy DamageType.
+	 * @param value nowa wartość. Jeśli z typem obrażeń była powiązana inna
+	 * wartość zostanie ona zwrócona. Jeśli nie zostanie zwrócone 0.
+	 * @return poprzednia redukcja dla danych obrażeń. Jeśli nie było poprzedniej
+	 * zostanie zwrócone 0.
+	 */
+	@SuppressWarnings("unchecked")
+	public int setDamageReduction(int reductionType, int value) {
+		Object tmp = get(StringConstants.KEY_DAMAGE_REDUCTION);
+		Map<Integer, Integer> mapOfDR;
+		if(tmp == null) {
+			mapOfDR = new HashMap<Integer, Integer>();
+			put(StringConstants.KEY_DAMAGE_REDUCTION, mapOfDR);
+		} else {
+			mapOfDR = (Map<Integer,Integer>)tmp;
+		}
+		
+		tmp = mapOfDR.put(reductionType, value);
+		return tmp == null ? 0 : (int)tmp;
+	}
+	
+	/**
+	 * Zwraca redukcję obrażeń dla danego typu obrażeń.
+	 * @param reductionType typ obrażeń z klasy DamageType.
+	 * @return redukcja obrażeń dla danego typu obrażeń, bądź 0 jeśli brak takiej redukcji.
+	 */
+	@SuppressWarnings("unchecked")
+	public int getDamageReduction(int reductionType) {
+		Object tmp = get(StringConstants.KEY_DAMAGE_REDUCTION);
+		if(tmp == null)
+			return 0;
+		tmp = ((Map<Integer,Integer>)tmp).get(reductionType);
+		return tmp == null ? 0 : (int)tmp;
 	}
 	
 	/**
