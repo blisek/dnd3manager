@@ -29,6 +29,8 @@ public class StringConstants {
 	
 	public static final String AC = "ac"; // KP
 	
+	public static final String BASE_ATTACK = "base_att";
+	
 	
 	// PARAMETRY PRZEKAZYWANE PRZY TWORZENIU
 	/**

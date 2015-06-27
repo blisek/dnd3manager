@@ -16,15 +16,6 @@ public abstract class AbstractClass implements RestrictedSystemObject {
 	public abstract int getHitDice();
 	
 	/**
-	 * Zwraca wszystkie premie do ataku liczone tylko na bazie bazowej premii do ataku.
-	 * Dzierżona broń nie jest brana pod uwagę z nielicznymi wyjątkami (np. mnich).
-	 * @param model model postaci.
-	 * @return tablica premii do ataku (nie uwzględniając innych premii jak
-	 * np. za atut, włączając w to biegłości w broniach).
-	 */
-	public abstract int[] getAttacks(CreatureModel model);
-	
-	/**
 	 * Zwraca liczbę rang dostępnych na każdym poziomie.
 	 * @return liczba rang.
 	 */
@@ -70,6 +61,13 @@ public abstract class AbstractClass implements RestrictedSystemObject {
 	 * @return lista prefiksów atrybutów.
 	 */
 	public abstract Collection<String> getAbilitiesByPriorityDescending();
+	
+	/**
+	 * Zwraca liczbę ataków na danym poziomie.
+	 * @param level poziom postaci.
+	 * @return liczba ataków.
+	 */
+	public abstract int getAttacksCount(int level);
 	
 	/**
 	 * Zwraca dopuszczalne charaktery dla tej klasy. Można sprawdzić czy dla danego

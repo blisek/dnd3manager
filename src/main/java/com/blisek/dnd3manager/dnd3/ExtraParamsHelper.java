@@ -83,6 +83,19 @@ public class ExtraParamsHelper {
 	}
 	
 	/**
+	 * Zwraca wartość boolowską. Jeśli klucz nie jest obecny w słowniku zwracana
+	 * jest wartość false. Jeśli klucz jest obecny, jest usuwany ze słownika.
+	 * @param extraParams słownik parametrów.
+	 * @param param nazwa klucza w extraParams.
+	 * @return false jeśli klucz jest nieobecny w słowniku bądź wartość false
+	 * jest związana z tym kluczem. W innym wypadku - true.
+	 */
+	public static boolean takeBooleanDefaultFalse(Map<String, Object> extraParams, String param) {
+		Object bool = extraParams.remove(param);
+		return (bool == null) ? false : (boolean)bool;
+	}
+	
+	/**
 	 * Zwiększa wartość int związaną z danym kluczem. Jeśli klucz nie istnieje
 	 * przyjmuje się jego poprzednią wartość za 0. W słowniku zostanie zapisana
 	 * wartość >= 0 nawet jeśli inc_val jest < 0.

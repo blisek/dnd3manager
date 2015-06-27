@@ -1,5 +1,6 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +18,16 @@ public enum Context {
 		return effects;
 	}
 	
+	public Map<String, AbstractFeat> getFeats()	{
+		return feats;
+	}
 	
-	private Map<String, AbstractEffect> effects;
+	public Map<String, AbstractSpecialAbility> getSpecialAbilities() {
+		return specab;
+	}
+	
+	
+	private Map<String, AbstractEffect> effects = new HashMap<String, AbstractEffect>();
+	private Map<String, AbstractFeat> feats = new HashMap<String, AbstractFeat>();
+	private Map<String, AbstractSpecialAbility> specab = new HashMap<String, AbstractSpecialAbility>();
 }

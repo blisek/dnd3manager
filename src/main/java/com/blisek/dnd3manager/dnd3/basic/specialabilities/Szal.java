@@ -43,14 +43,14 @@ public class Szal extends AbstractSpecialAbility implements MapObservator {
 
 	@Override
 	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
-		Object uiObj = extraParams.get(StringConstants.P_USES_COUNT);
+		Object uiObj = extraParams.remove(StringConstants.P_USES_COUNT);
 		UsesInfo ui = (uiObj == null) ? new UsesInfo(1, TimeUnit.DAY) : (UsesInfo)uiObj;
 		// atut przechowuje czwórkę obiektów (UsesInfo, boolean, int, boolean), gdzie pierwszy element
 		// jest liczbą użyć, a drugi jeśli jest ustawiony na true oznacza, że
 		// postać posiada potężniejszy szał. Trzeci to liczba pozostałych użyć, czwarty
 		// jeśli true jest traktowany jako szał bez zmęczenia.
-		boolean isImproved = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, P_ULEPSZONY_SZAL);
-		boolean tirelessRage = ExtraParamsHelper.getBooleanDefaultFalse(extraParams, P_BEZ_ZMECZENIA);
+		boolean isImproved = ExtraParamsHelper.takeBooleanDefaultFalse(extraParams, P_ULEPSZONY_SZAL);
+		boolean tirelessRage = ExtraParamsHelper.takeBooleanDefaultFalse(extraParams, P_BEZ_ZMECZENIA);
 		model.getSpecialAbilitiesMap().put(Szal.SYSTEM_NAME, new Object[] { ui, isImproved, ui.usesPerTimeUnit, tirelessRage });
 	}
 

@@ -1,5 +1,8 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CreatureController implements MapObservator, FlagObserver {
 	private CreatureModel model;
 
@@ -18,7 +21,7 @@ public class CreatureController implements MapObservator, FlagObserver {
 	 */
 	public int getStrengthMod(boolean recalculate) {
 		if(strMod == null || recalculate)
-			strMod = calculateMod(StringConstants.STRENGTH);
+			strMod = CreatureHelper.calculateMod(model, StringConstants.STRENGTH);
 		return strMod;
 	}
 	
@@ -29,7 +32,7 @@ public class CreatureController implements MapObservator, FlagObserver {
 	 */
 	public int getDexterityMod(boolean recalculate) {
 		if(dexMod == null || recalculate)
-			dexMod = calculateMod(StringConstants.DEXTERITY);
+			dexMod = CreatureHelper.calculateMod(model, StringConstants.DEXTERITY);
 		return dexMod;
 	}
 	
@@ -40,7 +43,7 @@ public class CreatureController implements MapObservator, FlagObserver {
 	 */
 	public int getConstitutionMod(boolean recalculate) {
 		if(conMod == null || recalculate)
-			conMod = calculateMod(StringConstants.CONSTITUTION);
+			conMod = CreatureHelper.calculateMod(model, StringConstants.CONSTITUTION);
 		return conMod;
 	}
 	
@@ -51,7 +54,7 @@ public class CreatureController implements MapObservator, FlagObserver {
 	 */
 	public int getIntelligenceMod(boolean recalculate) {
 		if(intMod == null || recalculate)
-			intMod = calculateMod(StringConstants.INTELLIGENCE);
+			intMod = CreatureHelper.calculateMod(model, StringConstants.INTELLIGENCE);
 		return intMod;
 
 	}
@@ -63,7 +66,7 @@ public class CreatureController implements MapObservator, FlagObserver {
 	 */
 	public int getWisdomMod(boolean recalculate) {
 		if(wisMod == null || recalculate)
-			wisMod = calculateMod(StringConstants.WISDOM);
+			wisMod = CreatureHelper.calculateMod(model, StringConstants.WISDOM);
 		return wisMod;
 
 	}
@@ -75,9 +78,82 @@ public class CreatureController implements MapObservator, FlagObserver {
 	 */
 	public int getCharismaMod(boolean recalculate) {
 		if(chaMod == null || recalculate)
-			chaMod = calculateMod(StringConstants.CHARISMA);
+			chaMod = CreatureHelper.calculateMod(model, StringConstants.CHARISMA);
 		return chaMod;
 
+	}
+	
+	/**
+	 * Zwraca, lub wylicza jeśli jest to pierwsze wywołanie metody, szybkość postaci.
+	 * @param recalculate wymusza ponowne obliczenie szybkości postaci.
+	 * @return szybkość postaci.
+	 */
+	public float getSpeed(boolean recalculate) {
+		return (float)getDoubleValue(StringConstants.SPEED, recalculate);
+	}
+	
+	/**
+	 * Zwraca, bądź wylicza jeżeli jest to pierwsze wywołanie metody, wartość rzutu
+	 * obronnego na wytrwałość.
+	 * @param recalculate wymusza ponowne obliczenie wartości.
+	 * @return wartość tego rzutu obronnego.
+	 */
+	public int getFortitude(boolean recalculate) {
+		return getIntegerValue(StringConstants.FORTITUDE, recalculate);
+	}
+	
+	/**
+	 * Zwraca, bądź wylicza jeżeli jest to pierwsze wywołanie metody, wartość rzutu
+	 * obronnego na refleks.
+	 * @param recalculate wymusza ponowne obliczenie wartości.
+	 * @return wartość tego rzutu obronnego.
+	 */
+	public int getReflex(boolean recalculate) {
+		return getIntegerValue(StringConstants.REFLEX, recalculate);
+	}
+	
+	/**
+	 * Zwraca, bądź wylicza jeżeli jest to pierwsze wywołanie metody, wartość rzutu
+	 * obronnego na wolę.
+	 * @param recalculate wymusza ponowne obliczenie wartości.
+	 * @return wartość tego rzutu obronnego.
+	 */
+	public int getWill(boolean recalculate) {
+		return getIntegerValue(StringConstants.WILL, recalculate);
+	}
+	
+	private int getIntegerValue(String prefix, boolean recalculate) {
+		if(recalculate) {
+			int sum = CreatureHelper.sumParamsBeginWith(model, prefix);
+			bufferedValues.put(prefix, sum);
+			return sum;
+		} else {
+			Number n = bufferedValues.get(prefix);
+			int tmp;
+			if(n == null) {
+				tmp = CreatureHelper.sumParamsBeginWith(model, prefix);
+				bufferedValues.put(prefix, tmp);
+			} else 
+				tmp = n.intValue();
+			return tmp;
+		}
+	}
+	
+	private double getDoubleValue(String prefix, boolean recalculate) {
+		if(recalculate) {
+			double sum = CreatureHelper.sumDoubleParamsBeginWith(model, prefix);
+			bufferedValues.put(prefix, sum);
+			return sum;
+		} else {
+			Number n = bufferedValues.get(prefix);
+			double tmp;
+			if(n == null) {
+				tmp = CreatureHelper.sumDoubleParamsBeginWith(model, prefix);
+				bufferedValues.put(prefix, tmp);
+			} else 
+				tmp = n.doubleValue();
+			return tmp;
+		}
 	}
 	
 	
@@ -162,19 +238,8 @@ public class CreatureController implements MapObservator, FlagObserver {
 		
 	}
 
-	/**
-	 * Sumuje wszystkie wartości przypisane do kluczy modelu postaci, które zaczynają się od prefix.
-	 * @param prefix prefiks nazw kluczy.
-	 * @return suma wszystkich wartości spełniających warunek.
-	 */
-	private int calculateMod(String prefix) {
-		int sum = model.entrySet().parallelStream()
-				.filter((entry) -> entry.getKey().startsWith(prefix))
-				.mapToInt((entry) -> { Object obj = entry.getValue(); return obj == null ? 0 : (int)obj; })
-				.sum();	
-		return sum < 10 ? (sum - 11) / 2 : (sum - 10) / 2;
-	}
 
 
 	private Integer strMod, dexMod, conMod, intMod, wisMod, chaMod;
+	private Map<String, Number> bufferedValues = new HashMap<>();
 }
