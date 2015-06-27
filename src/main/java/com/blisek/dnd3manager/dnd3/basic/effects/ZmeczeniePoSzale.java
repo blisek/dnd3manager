@@ -22,7 +22,7 @@ public class ZmeczeniePoSzale extends AbstractEffect implements FlagObserver {
 
 	@Override
 	public void turnOnFor(CreatureModel model, Map<String, Object> extraParams) {
-		model.getEffectsMap().put(SYSTEM_NAME, 0);
+		model.getEffectsMap().put(SYSTEM_NAME, 1);
 		model.put(STR_KEY, -2);
 		model.put(DEX_KEY, -2);
 		model.addFlagObserver(this);
@@ -51,7 +51,6 @@ public class ZmeczeniePoSzale extends AbstractEffect implements FlagObserver {
 	// stanu.
 	@Override
 	public void flagChanged(Object sender, int bitNum, boolean oldValue, boolean newValue) {
-		// TODO Auto-generated method stub
 		if(bitNum != CreatureFlags.CANT_RUN && bitNum != CreatureFlags.CANT_CHARGE)
 			return;
 		CreatureModel model = (CreatureModel)sender;
@@ -67,7 +66,8 @@ public class ZmeczeniePoSzale extends AbstractEffect implements FlagObserver {
 					model.turnFlagOn(bitNum);
 				break;
 			}
-		}
+		} else 
+			model.removeFlagObserver(this);
 	}
 
 }

@@ -61,5 +61,10 @@ public enum FeatType {
 	 * Atuty związane ze zdolnościami zmiany
 	 * kształtów np. u druida.
 	 */
-	WILD
+	WILD,
+	
+	/**
+	 * Zdolność specjalna.
+	 */
+	SPECIAL_ABILITY
 }

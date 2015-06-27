@@ -234,7 +234,6 @@ public class CreatureController implements MapObservator, FlagObserver {
 	@Override
 	public void flagChanged(Object sender, int bitNum, boolean oldValue,
 			boolean newValue) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -11,4 +11,9 @@ public abstract class AbstractSpecialAbility extends AbstractFeat {
 		return model.getSpecialAbilitiesMap().containsKey(getSystemName());
 	}
 
+	@Override
+	public FeatType getFeatType() {
+		return FeatType.SPECIAL_ABILITY;
+	}
+	
 }

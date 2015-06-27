@@ -18,10 +18,15 @@ import com.blisek.dnd3manager.dnd3.CreatureHelper;
 import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.DamageType;
 import com.blisek.dnd3manager.dnd3.ExtraParamsHelper;
+import com.blisek.dnd3manager.dnd3.MartialWeapons;
 import com.blisek.dnd3manager.dnd3.NumericConstants;
+import com.blisek.dnd3manager.dnd3.SimpleWeapons;
 import com.blisek.dnd3manager.dnd3.StringConstants;
 import com.blisek.dnd3manager.dnd3.TimeUnit;
 import com.blisek.dnd3manager.dnd3.UsesInfo;
+import com.blisek.dnd3manager.dnd3.basic.feats.Bieglosc;
+import com.blisek.dnd3manager.dnd3.basic.feats.BiegloscWBroniProstej;
+import com.blisek.dnd3manager.dnd3.basic.feats.BiegloscWBroniZolnierskiej;
 import com.blisek.dnd3manager.dnd3.basic.skills.Jezdziectwo;
 import com.blisek.dnd3manager.dnd3.basic.skills.Nasluchiwanie;
 import com.blisek.dnd3manager.dnd3.basic.skills.Plywanie;
@@ -143,9 +148,15 @@ public class Barbarzynca extends AbstractClass {
 			special.get(Szal.SYSTEM_NAME).turnOnFor(model, extraParams);
 		}
 		
-		// Szybkie poruszanie się
-		if(level == 1)
+		// Szybkie poruszanie się i biegłości.
+		if(level == 1) {
 			special.get(SzybkiePoruszanie.SYSTEM_NAME).turnOnFor(model, extraParams);
+			
+			extraParams.put(Bieglosc.P_WEAPON_TYPE_LIST, Arrays.asList(SimpleWeapons.values()));
+			feats.get(BiegloscWBroniProstej.SYSTEM_NAME).turnOnFor(model, extraParams);
+			extraParams.put(Bieglosc.P_WEAPON_TYPE_LIST, Arrays.asList(MartialWeapons.values()));
+			feats.get(BiegloscWBroniZolnierskiej.SYSTEM_NAME).turnOnFor(model, extraParams);
+		}
 		
 		// Zachowuje premię do KP gdy zaskoczony
 		if(level == 2)
@@ -165,7 +176,7 @@ public class Barbarzynca extends AbstractClass {
 		}
 	}
 
-	// TODO Dodać biegłości
+	// TODO Dodać biegłości w pancerzach.
 	private void firstLevelEver(CreatureModel model,
 			Map<String, Object> extraParams) {
 		int ranks = (getSkillRanksForLevel() * 
@@ -180,6 +191,12 @@ public class Barbarzynca extends AbstractClass {
 		Map<String, AbstractSpecialAbility> specAbilities = Context.INSTANCE.getSpecialAbilities();
 		specAbilities.get(SzybkiePoruszanie.SYSTEM_NAME).turnOnFor(model, extraParams);
 		specAbilities.get(Szal.SYSTEM_NAME).turnOnFor(model, extraParams);
+		
+		Map<String, AbstractFeat> feats = Context.INSTANCE.getFeats();
+		extraParams.put(Bieglosc.P_WEAPON_TYPE_LIST, Arrays.asList(SimpleWeapons.values()));
+		feats.get(BiegloscWBroniProstej.SYSTEM_NAME).turnOnFor(model, extraParams);
+		extraParams.put(Bieglosc.P_WEAPON_TYPE_LIST, Arrays.asList(MartialWeapons.values()));
+		feats.get(BiegloscWBroniZolnierskiej.SYSTEM_NAME).turnOnFor(model, extraParams);
 		
 		model.addLevelTo(Barbarzynca.SYSTEM_NAME);
 	}
