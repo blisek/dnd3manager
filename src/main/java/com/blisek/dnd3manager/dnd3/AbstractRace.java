@@ -12,7 +12,7 @@ public abstract class AbstractRace implements RestrictedSystemObject {
 	}
 
 	@Override
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams) {
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams) {
 		return true;
 	}
 

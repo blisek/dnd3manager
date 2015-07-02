@@ -32,7 +32,7 @@ public class Szal extends AbstractSpecialAbility implements MapObservator {
 	private static final String PARAM_KP_BONUS = String.format("%s_%s", StringConstants.AC, Szal.SYSTEM_NAME);
 
 	@Override
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams) {
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams) {
 		return false;
 	}
 

@@ -13,7 +13,7 @@ public class SzybkiePoruszanie extends AbstractFeat {
 			String.format("%s_%s", StringConstants.SPEED, SzybkiePoruszanie.SYSTEM_NAME);
 
 	@Override
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams) {
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams) {
 		return false;
 	}
 

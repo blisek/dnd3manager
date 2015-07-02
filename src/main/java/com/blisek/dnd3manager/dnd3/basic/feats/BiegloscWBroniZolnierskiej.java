@@ -1,9 +1,11 @@
 package com.blisek.dnd3manager.dnd3.basic.feats;
 
+import java.util.Map;
+
 import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.MartialWeapons;
 
-public class BiegloscWBroniZolnierskiej extends Bieglosc<MartialWeapons> {
+public class BiegloscWBroniZolnierskiej extends BiegloscWBroni<MartialWeapons> {
 	public static final String SYSTEM_NAME = "bwbzolnierskiej";
 
 	public BiegloscWBroniZolnierskiej() {
@@ -11,7 +13,7 @@ public class BiegloscWBroniZolnierskiej extends Bieglosc<MartialWeapons> {
 	}
 
 	@Override
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams) {
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams) {
 		return true;
 	}
 

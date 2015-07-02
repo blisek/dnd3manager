@@ -1,11 +1,13 @@
 package com.blisek.dnd3manager.dnd3.basic.feats;
 
+import java.util.Map;
+
 import com.blisek.dnd3manager.dnd3.CreatureModel;
 import com.blisek.dnd3manager.dnd3.ExoticWeapons;
 import com.blisek.dnd3manager.dnd3.ExtraParamsHelper;
 import com.blisek.dnd3manager.dnd3.StringConstants;
 
-public class BiegloscWBroniEgzotycznej extends Bieglosc<ExoticWeapons> {
+public class BiegloscWBroniEgzotycznej extends BiegloscWBroni<ExoticWeapons> {
 	public static final String SYSTEM_NAME = "bieg_egz";
 	
 	public BiegloscWBroniEgzotycznej() {
@@ -13,7 +15,7 @@ public class BiegloscWBroniEgzotycznej extends Bieglosc<ExoticWeapons> {
 	}
 
 	@Override
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams) {
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams) {
 		// TODO Dodać osobne zasady dla krasnoludzkiego toporu bojowego.
 		return ExtraParamsHelper.getIntegerDefault0(model, StringConstants.BASE_ATTACK) > 0;
 	}

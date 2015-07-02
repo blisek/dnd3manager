@@ -15,7 +15,7 @@ public class BlyskawicznyRefleks extends AbstractFeat {
 	}
 
 	@Override
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams) {
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams) {
 		return !model.getFeatsMap().containsKey(getSystemName());
 	}
 

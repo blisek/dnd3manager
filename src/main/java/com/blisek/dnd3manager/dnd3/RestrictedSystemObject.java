@@ -1,5 +1,7 @@
 package com.blisek.dnd3manager.dnd3;
 
+import java.util.Map;
+
 public interface RestrictedSystemObject extends SystemObject {
 
 	/**
@@ -9,6 +11,6 @@ public interface RestrictedSystemObject extends SystemObject {
 	 * @param extraParams dodatkowe parametry.
 	 * @return true jeśli może być przypisany.
 	 */
-	public boolean isAvailableFor(CreatureModel model, Object... extraParams);
+	public boolean isAvailableFor(CreatureModel model, Map<String, Object> extraParams);
 
 }

@@ -14,12 +14,12 @@ import com.blisek.dnd3manager.dnd3.CreatureModel;
  *
  * @param <WeaponEnum> enumeracja z typami broni.
  */
-public abstract class Bieglosc<WeaponEnum extends Enum<WeaponEnum>> extends AbstractFeat {
+public abstract class BiegloscWBroni<WeaponEnum extends Enum<WeaponEnum>> extends AbstractFeat {
 	public static final String P_WEAPON_TYPE = "pweapont";
 	public static final String P_WEAPON_TYPE_LIST = "pweapontl";
 	private Class<WeaponEnum> weaponEnumClass;
 
-	protected Bieglosc(Class<WeaponEnum> weaponEnumClass) {
+	protected BiegloscWBroni(Class<WeaponEnum> weaponEnumClass) {
 		super();
 		this.weaponEnumClass = weaponEnumClass;
 	}
