@@ -24,6 +24,12 @@ public abstract class Item implements RestrictedSystemObject {
 	 * @return typ z enumeracji ItemType.
 	 */
 	public abstract ItemType getType();
+	
+	/**
+	 * Zwraca wagę przedmiotu w kilogramach.
+	 * @return waga przedmiotu w kg.
+	 */
+	public abstract float getWeight();
 
 	@Override
 	public boolean isOnFor(CreatureModel model, Map<String, Object> extraParams) {
