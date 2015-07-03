@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.blisek.dnd3manager.dnd3.equipment.Item;
+
 /**
  * Model postaci. Metody wstawiania, zastępowania i usuwania zgłaszają
  * te czynności obserwatorom implementującym interfejs CreatureModelObservator.
@@ -47,6 +49,29 @@ public class CreatureModel extends ObservableMap<String, Object> {
 		
 //		// przechowuje informacje o redukcji obrażeń
 //		putWithoutNotify(StringConstants.KEY_DAMAGE_REDUCTION, new HashMap<Integer, Integer>());
+		
+		// ekwipunek używany obecnie przez postać
+		creatureInventory = new Inventory();
+		
+		// lista wszystkich przedmiotów
+		equipment = new ArrayList<Item>();
+	}
+	
+	/**
+	 * Zwraca cały ekwipunek postaci.
+	 * @return lista przedmiotów posiadanych przez
+	 * przez postać.
+	 */
+	public List<Item> getEquipment() {
+		return equipment;
+	}
+	
+	/**
+	 * Zwraca aktywny ekwipunek postaci.
+	 * @return ekwipunek postaci.
+	 */
+	public Inventory getCurrentInventory() {
+		return creatureInventory;
 	}
 	
 	/**
@@ -261,6 +286,8 @@ public class CreatureModel extends ObservableMap<String, Object> {
 	private static final long serialVersionUID = -5491615991801707374L;
 	
 	private final BitSet creatureFlags;
+	private final Inventory creatureInventory;
+	private final List<Item> equipment;
 	private List<FlagObserver> flagObservers;
 	
 }
