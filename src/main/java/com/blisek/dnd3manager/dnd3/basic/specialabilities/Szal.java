@@ -136,7 +136,8 @@ public class Szal extends AbstractSpecialAbility implements MapObservator {
 		model.remove(PARAM_KP_BONUS);
 		
 		if(!(boolean)params[ELEMENT_TIRELESS_RAGE]) { // dopóki barbarzyńca męczy się po szale (jego poziom < 20) zwracany jest efekt ZmeczeniePoSzale.
-			List<AbstractEffect> l = ExtraParamsHelper.<AbstractEffect>getListOrCreateNewOne(extraParams, StringConstants.P_EFFECTS);
+			List<AbstractEffect> l = 
+					ExtraParamsHelper.getListOrCreateNewOne(extraParams, StringConstants.P_EFFECTS);
 			l.add(Context.INSTANCE.getEffects().get(ZmeczeniePoSzale.SYSTEM_NAME));
 		}
 		

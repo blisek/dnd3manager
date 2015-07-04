@@ -41,6 +41,7 @@ import com.blisek.dnd3manager.dnd3.basic.skills.Wspinaczka;
 import com.blisek.dnd3manager.dnd3.basic.skills.WyczucieKierunku;
 import com.blisek.dnd3manager.dnd3.basic.skills.Zastraszanie;
 import com.blisek.dnd3manager.dnd3.basic.skills.ZnajomoscDziczy;
+import com.blisek.dnd3manager.dnd3.basic.specialabilities.NieswiadomyUnik;
 import com.blisek.dnd3manager.dnd3.basic.specialabilities.Szal;
 import com.blisek.dnd3manager.dnd3.basic.specialabilities.SzybkiePoruszanie;
 
@@ -187,6 +188,11 @@ public class Barbarzynca extends AbstractClass {
 			model.turnFlagOn(CreatureFlags.CANNOT_BE_FLANKED);
 
 		// TODO Nieświadomy unik?
+		// nieświadomy unik
+		if((level - 10) % 3 == 0) {
+			NieswiadomyUnik nu = new NieswiadomyUnik();
+			a;
+		}
 
 		// Redukcja obrażeń
 		if (level >= 11 && (level - 11) % 3 == 0) {

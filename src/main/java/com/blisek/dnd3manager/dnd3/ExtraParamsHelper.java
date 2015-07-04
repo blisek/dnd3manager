@@ -56,6 +56,20 @@ public class ExtraParamsHelper {
 	}
 	
 	/**
+	 * Zwraca int z podanego klucza. Usuwa wartość związaną z tym kluczem.
+	 * @param extraParams słownik paramterów.
+	 * @param param nazwa parametru.
+	 * @return int lub 0 jeśli klucz nie istnieje.
+	 */
+	public static int takeIntegerDefault0(Map<String, Object> extraParams, String param) {
+		Object integer = extraParams.remove(param);
+		if(integer == null)
+			return 0;
+		else
+			return (int)integer;
+	}
+
+	/**
 	 * Zwraca wartość boolowską, bądź null jeśli klucza nie ma w słowniku.
 	 * @param extraParams
 	 * @param param
@@ -123,16 +137,38 @@ public class ExtraParamsHelper {
 	 * @return lista.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getListOrCreateNewOne(Map<String, Object> extraParams, String param) {
+	public static <E, K, V> List<E> getListOrCreateNewOne(Map<K, V> extraParams, K param) {
 		Object obj = extraParams.get(param);
 		List<E> retList;
 		if(obj == null) {
 			retList = new ArrayList<E>();
-			extraParams.put(param, retList);
+			extraParams.put(param, (V)retList);
 		} else {
 			retList = (List<E>)obj;
 		}
 		
 		return retList;
+	}
+	
+	/**
+	 * Zwraca mapę związaną z danym kluczem. Jeśli klucz nie jest związany (nie jest
+	 * do niego przypisana mapa) tworzy nową mapę typu ObservableMap wiąże ją z kluczem
+	 * i zwraca.
+	 * @param extraParams słownik w którym mapa jest poszukiwana.
+	 * @param param klucz w extraParams.
+	 * @return mapa istniejąca, bądź nowoutworzona typu ObservableMap o żądanym typie.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <K, V> Map<K,V> getMapOrCreateOne(Map<String, Object> extraParams, String param) {
+		Object obj = extraParams.get(param);
+		Map<K, V> map;
+		if(obj == null) {
+			map = new ObservableMap<>(false);
+			extraParams.put(param, map);
+		} else {
+			map = (Map<K,V>)obj;
+		}
+		
+		return map;
 	}
 }

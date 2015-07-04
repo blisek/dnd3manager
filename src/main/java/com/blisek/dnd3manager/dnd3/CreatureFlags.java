@@ -32,4 +32,9 @@ public final class CreatureFlags {
 	 * Jeśli ustawiony na true postać nie może szarżować.
 	 */
 	public static final int CANT_CHARGE = 16;
+	
+	/**
+	 * Postać posiada nieświadomy unik.
+	 */
+	public static final int HAS_UNCANNY_DODGE = 17;
 }
