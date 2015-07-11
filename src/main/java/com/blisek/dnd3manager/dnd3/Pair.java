@@ -2,7 +2,7 @@ package com.blisek.dnd3manager.dnd3;
 
 import java.util.Comparator;
 
-public final class Pair<E, F> {
+public class Pair<E, F> {
 	public E first;
 	public F second;
 	
